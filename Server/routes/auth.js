@@ -19,7 +19,7 @@ router.post("/login", function(req, res) {
   }
 
   if (email === "" || password === "") {
-    res.status(401).json({message:"fill up the fields"});
+    res.status(401).json({message:"Please fill up all the fields"});
     return;
   }
 
@@ -47,9 +47,10 @@ router.post("/login", function(req, res) {
 router.post("/signup", (req, res, next) => {
   var email = req.body.email;
   var password = req.body.password;
+  var name = req.body.name;
 
-  if (!email || !password) {
-    res.status(400).json({ message: "Provide email and password" });
+  if (!email || !password || !name === "") {
+    res.status(400).json({ message: "Please provide email and password" });
     return;
   }
 
@@ -64,6 +65,7 @@ router.post("/signup", (req, res, next) => {
 
     var newUser = User({
       email,
+      name,
       password: hashPass
     });
 

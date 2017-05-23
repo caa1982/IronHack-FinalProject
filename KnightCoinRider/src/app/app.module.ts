@@ -13,6 +13,7 @@ import { KittComponent } from './kitt/kitt.component';
 import { SettingsComponent } from './settings/settings.component';
 import { HelpComponent } from './help/help.component';
 import { WikipediaService } from './wikipedia.service';
+import { SessionService } from './session.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'landing-page', pathMatch: 'full' },
@@ -32,7 +33,7 @@ const routes: Routes = [
     LoginComponent,
     KittComponent,
     SettingsComponent,
-    HelpComponent,
+    HelpComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +42,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     BrowserAnimationsModule
   ],
-  providers: [WikipediaService],
+  providers: [WikipediaService, SessionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 
 // add your database Name
-const dbName = 'databaseName';
+const dbName = 'KnightCoinRider';
 
 // connect to the database
 mongoose.connect(`mongodb://localhost/${dbName}`);
