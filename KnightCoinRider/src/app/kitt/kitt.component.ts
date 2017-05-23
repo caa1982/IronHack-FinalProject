@@ -38,6 +38,12 @@ export class KittComponent implements OnInit {
         if (this.wikiArticle.includes('.')) {
           this.wikiArticle = this.wikiArticle.substring(0, this.wikiArticle.indexOf('.'));
         }
+        else {
+          this.wikiArticle = 'Please search again, it seems your search has no wikipedia entry'
+        }
+        if ( this.wikiArticle.includes('From other capitalisation')){
+          this.wikiArticle = 'Please search again, Names and Surname should start with capital letter'
+        }
         this.kitt.wiki(this.wikiArticle);
       });
   }

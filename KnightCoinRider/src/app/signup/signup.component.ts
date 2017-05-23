@@ -34,7 +34,7 @@ export class SignupComponent implements OnInit {
         if (result === true) {
           // login successful
           console.log('result ok', result);
-          this.router.navigate(['/kitt']);
+          this.router.navigate(['/settings']);
         } else {
           console.log('result ko', result);
           // login failed
