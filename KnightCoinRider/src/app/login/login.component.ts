@@ -16,8 +16,18 @@ export class LoginComponent implements OnInit {
     this.kitt.kittNavigation();
   }
 
-  login() {
-    this.router.navigate(['kitt']);
+ login() {
+    this.session.login(this.user)
+				        .subscribe(result => {
+				            if (result === true) {
+			                // login successful
+			                this.router.navigate(['/kitt']);
+			         			} else {
+			                // login failed
+			                this.error = 'Username or password is incorrect';
+				            }
+				        });
   }
+
 
 }
