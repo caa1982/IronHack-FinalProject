@@ -4,11 +4,11 @@
     <div class="col">
       <div class="input-group mb-2 mr-sm-2 mb-sm-0">
         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user-secret"></i></div>
-        <input class="form-control" placeholder="Bittrex Api Key" name="bittrex_apikey" type="text"/>
+        <input class="form-control" placeholder="Poloniex API Key" name="PoloniexKey" type="text" [(ngModel)]="userSetting.PoloniexKey"/>
       </div>
       <div class="input-group mb-2 mr-sm-2 mb-sm-0">
         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user-secret"></i></div>
-        <input class="form-control" placeholder="Bittrex Api Secret" name="bittrex_apisecret" type="text"/>
+        <input class="form-control" placeholder="Poloniex API Secret" name="PoloniexSecret" type="text" [(ngModel)]="userSetting.PoloniexSecret"/>
       </div>
     </div>
   </div>
@@ -16,11 +16,11 @@
     <div class="col">
       <div class="input-group mb-2 mr-sm-2 mb-sm-0">
         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user-secret"></i></div>
-        <input class="form-control" placeholder="Poloniex Api Key" name="poloniex_apikey" type="text"/>
+        <input class="form-control" placeholder="Bittrex API Key" name="BittrexKey" type="text" [(ngModel)]="userSetting.BittrexKey"/>
       </div>
       <div class="input-group mb-2 mr-sm-2 mb-sm-0">
         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user-secret"></i></div>
-        <input class="form-control" placeholder="Poloniex Api Secret" name="poloniex_apisecret" type="text"/>
+        <input class="form-control" placeholder="Bittrex API Secret" name="BittrexSecret" type="text" [(ngModel)]="userSetting.BittrexSecret"/>
       </div>
     </div>
   </div>
@@ -28,13 +28,13 @@
     <div class="col">
       <div class="input-group mb-2 mr-sm-2 mb-sm-0">
         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user-secret"></i></div>
-        <input class="form-control" placeholder="Kraken Api Key" name="Kraken_apikey" type="text"/>
+        <input class="form-control" placeholder="Kraken API Key" name="KrakenKey" type="text" [(ngModel)]="userSetting.KrakenKey"/>
       </div>
       <div class="input-group mb-2 mr-sm-2 mb-sm-0">
         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user-secret"></i></div>
-        <input class="form-control" placeholder="Kraken Api Secret" name="Kraken_apikey" type="text"/>
+        <input class="form-control" placeholder="Kraken API Secret" name="Kraken_apikey" type="text" [(ngModel)]="userSetting.KrakenSecret"/>
       </div>
     </div>
   </div>
-  <button type="button" class="btn btn-outline-success">Submit</button>
+  <button type="button" class="btn btn-outline-success" (click)="submit()">Submit</button>
 </form>

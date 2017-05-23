@@ -4,7 +4,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Router, CanActivate } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
-// let jwtDecode =  require('jwt-decode');
 import jwtDecode from 'jwt-decode';
 
 @Injectable()
@@ -19,7 +18,6 @@ export class SessionService implements CanActivate {
     private router: Router,
     private http: Http
   ) {
-    // console.log("jwt ",  jwtDecode)
       // set token if saved in local storage
       this.token = localStorage.getItem('token');
       if (this.token != null) {

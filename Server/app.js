@@ -6,8 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 const passport   = require('./config/passport');
 var auth         = require('./routes/auth');
-var users        = require('./routes/users');
-//var phones       = require('./routes/phones');
+var settings        = require('./routes/settings');
 var cors         = require('cors');
 
 
@@ -37,8 +36,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use('/', index);
 
 // app.use('/users', users);
-app.use('/', auth)
-//app.use('/api/phones', passport.authenticate('jwt', { session: false }), phones);
+app.use('/', auth);
+app.use('/settings', passport.authenticate('jwt', { session: false }), settings);
 
 // app.use(function(req, res) {
 //   res.sendfile(__dirname + '/public/index.html');
