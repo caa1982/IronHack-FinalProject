@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SessionService } from '../session.service';
 import { KittAIService } from '../kitt-ai.service';
 
 @Component({
@@ -9,8 +10,14 @@ import { KittAIService } from '../kitt-ai.service';
   providers: [KittAIService]
 })
 export class LoginComponent implements OnInit {
+  user = {
+    email: '',
+    password: ''
+  };
 
-  constructor(private router: Router, private kitt: KittAIService) { }
+  error: string;
+  
+  constructor(private router: Router, private kitt: KittAIService, private session: SessionService) { }
 
   ngOnInit() {
     this.kitt.kittNavigation();
