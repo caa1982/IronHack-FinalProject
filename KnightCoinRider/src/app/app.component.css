@@ -5,6 +5,7 @@
 
 .nav-item > a{
     color: white !important;
+    cursor: pointer;
 }
 
 i{
