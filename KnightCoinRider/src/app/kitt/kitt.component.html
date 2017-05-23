@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="inner">
+    <span [ngClass]="{ kittCSS: kitt.kittCSS }"></span>
+    <img src="/assets/kitt.png" class="kittScreen">
+  </div>
+</div>
+<p>{{kitt.textToSpeech}}</p>
+<div id="inputBox" class="input-group margin-bottom-sm text-center">
+  <input class="form-control" type="text" placeholder="KITT intsructions" #userInput>
+  <button type="button" class="btn btn-outline-success" (click)="kittInput(userInput)">Enter</button>
+</div>
+<div>
+  <br>
+  <a  id="wikiTitle" target="_blank" href="https://en.wikipedia.org/wiki/{{ wikiTitle }}">{{ wikiTitle }}</a>
+  <p id="wikiArticle">{{ wikiArticle }}</p>
+</div>

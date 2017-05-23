@@ -1,0 +1,21 @@
+.container{
+    width: 60%;
+    margin-top: 5%;
+}
+
+h1{
+    margin-bottom: 7%;
+    font-size: 6vw;
+    color: red;
+}
+
+input{
+    font-family: "KnightRider";
+}
+
+button{
+    margin-top: 2%;
+    font-family: "KnightRider";
+    cursor: pointer;
+    font-size: 25px;
+}

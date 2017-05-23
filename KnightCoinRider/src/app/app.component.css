@@ -1,0 +1,12 @@
+.navbar-brand, .navbar-nav{
+    font-family: "KnightRider" !important;
+    color: red;
+}
+
+.nav-item > a{
+    color: white !important;
+}
+
+i{
+    color: white;
+}

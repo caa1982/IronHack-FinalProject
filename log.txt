@@ -1,0 +1,90 @@
+commit 4d56c1211d1403f9bf4af17c6e1490361baf2320
+Author: Cyril Alvarez <cyrilalavrezadriaansen@gmail.com>
+Date:   Mon May 22 18:51:37 2017 +0200
+
+    add wikipedia component
+
+commit 381bc2c45604a1d65cbe856e5aaf51ab810dadf7
+Author: Cyril Alvarez <cyrilalavrezadriaansen@gmail.com>
+Date:   Mon May 22 17:25:24 2017 +0200
+
+    add wikipedia component
+
+commit f971c1f0720341853a6f431f710f8ba6bcf6d594
+Author: Cyril Alvarez <cyrilalavrezadriaansen@gmail.com>
+Date:   Mon May 22 13:44:02 2017 +0200
+
+    change string class for voice css class to [ngClass] boolean
+
+commit 6685679d140ce36be61574cf23b20fa7da432369
+Author: Cyril Alvarez <cyrilalavrezadriaansen@gmail.com>
+Date:   Sun May 21 11:16:19 2017 +0200
+
+    add ApplicationRef from '@angular/core' to make the change in speech appear in my component kitt
+
+commit 3d6691525bbcf05ec296866aeebcb1c017f3618d
+Author: Cyril Alvarez <cyrilalavrezadriaansen@gmail.com>
+Date:   Sun May 21 10:18:42 2017 +0200
+
+    add service for kitt AI
+
+commit baea95a267c0445b3c6ec396169f5a3dee0598b2
+Author: Cyril Alvarez <cyrilalavrezadriaansen@gmail.com>
+Date:   Sun May 21 09:49:14 2017 +0200
+
+    testing speech recognition, add command navbar speech recognition
+
+commit 67c552bc4a59e2238182916f5ec1aafe37d4b16e
+Author: Cyril Alvarez <cyrilalavrezadriaansen@gmail.com>
+Date:   Sat May 20 18:27:37 2017 +0200
+
+    add kitt animation and install artyom module
+
+commit 904117b64834bde92ecca9de42fcf1ee4e30fab7
+Author: Cyril Alvarez <cyrilalavrezadriaansen@gmail.com>
+Date:   Sat May 20 11:57:26 2017 +0200
+
+    add animate.css
+
+commit b1c3c35adea591699b15c19ce8d18a333aa8e78b
+Author: Cyril Alvarez <cyrilalavrezadriaansen@gmail.com>
+Date:   Sat May 20 09:48:42 2017 +0200
+
+    remove jumbotron on signup and login
+
+commit ec2096010e4f3ed3eff36ed7f3f1f8ef0a4ebbd8
+Author: Cyril Alvarez <cyrilalavrezadriaansen@gmail.com>
+Date:   Fri May 19 19:47:48 2017 +0200
+
+    add link hidden to navbar, componant login, register and kitt
+
+commit 51c1f33d1fcc3f1724d82e514ea5b0ec5b065126
+Author: Cyril Alvarez <cyrilalavrezadriaansen@gmail.com>
+Date:   Fri May 19 16:00:48 2017 +0200
+
+    add bootastrap jquery and change the navbar-brand font
+
+commit 3651b08dfaa2d4eecda8df62241edfbc54bb7f2d
+Author: Cyril Alvarez <cyrilalavrezadriaansen@gmail.com>
+Date:   Fri May 19 15:15:56 2017 +0200
+
+    add constume font and change px to vw
+
+commit 81f38c0ae90efe5b509f9e9ffdb065a25a7051ff
+Author: Cyril Alvarez <cyrilalavrezadriaansen@gmail.com>
+Date:   Fri May 19 14:18:41 2017 +0200
+
+    add picture, favicon and landing Page
+
+commit 79aadb594ccc0161be5a328277a088399b932c88
+Author: Angular CLI <angular-cli@angular.io>
+Date:   Fri May 19 14:08:57 2017 +0200
+
+    chore: initial commit from @angular/cli
+    
+        _                      _                 ____ _     ___
+       / \   _ __   __ _ _   _| | __ _ _ __     / ___| |   |_ _|
+      / △ \ | '_ \ / _` | | | | |/ _` | '__|   | |   | |    | |
+     / ___ \| | | | (_| | |_| | | (_| | |      | |___| |___ | |
+    /_/   \_\_| |_|\__, |\__,_|_|\__,_|_|       \____|_____|___|
+                   |___/

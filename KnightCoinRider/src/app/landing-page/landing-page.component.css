@@ -1,0 +1,113 @@
+.title{
+    font-size: 5vw;
+    font-family: "KnightRider";
+    cursor: pointer;
+}
+
+.subTitle{
+  font-family: "KnightRider";
+  margin-top: 1.5%;
+  color: red;
+  font-size: 18px;
+}
+
+#kitt {
+  position: absolute;
+  top: 30%;
+  width: 100%;
+  height: 12.5vw;
+}
+
+.one, .two, .three, .four, .five, .six, .seven, .eight, .nine, .ten {
+  width: 8%;
+  height: 20%;
+  background: red;
+  margin: 0;
+  border-radius: 0.5vw;
+  display: inline-block;
+  -webkit-box-shadow: 0 0 10vw red, inset 0 0 0.2vw white;
+  
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-direction: alternate;
+}
+.one {
+   -webkit-animation-name: first ;
+}
+.two {
+  -webkit-animation-name: second ;
+}
+.three {
+  -webkit-animation-name: third ;
+}
+.four {
+  -webkit-animation-name: fourth ;
+}
+.five {
+  -webkit-animation-name: fifth ;
+}
+.six {
+  -webkit-animation-name: sixth ;
+}
+.seven {
+  -webkit-animation-name: seventh ;
+}
+.eight {
+  -webkit-animation-name: eighth ;
+}
+
+@-webkit-keyframes first {
+  0%   {opacity:0;}
+  10%  {opacity:0.2;}
+  20%  {opacity:1;}
+  30%  {opacity:0.2;}
+  100% {opacity:0;}
+}
+@-webkit-keyframes second {
+  0%   {opacity:0;}
+  20%  {opacity:0.2;}
+  30%  {opacity:1;}
+  40%  {opacity:0.2;}
+  100% {opacity:0;}
+}
+@-webkit-keyframes third {
+  0%   {opacity:0;}
+  30%  {opacity:0.2;}
+  40%  {opacity:1;}
+  50%  {opacity:0.2;}
+  100% {opacity:0;}
+}
+@-webkit-keyframes fourth {
+  0%   {opacity:0;}
+  40%  {opacity:0.2;}
+  50%  {opacity:1;}
+  60%  {opacity:0.2;}
+  100% {opacity:0;}
+}
+@-webkit-keyframes fifth {
+  0%   {opacity:0;}
+  50%  {opacity:0.2;}
+  60%  {opacity:1;}
+  70%  {opacity:0.2;}
+  100% {opacity:0;}
+}
+@-webkit-keyframes sixth {
+  0%   {opacity:0;}
+  60%  {opacity:0.2;}
+  70%  {opacity:1;}
+  80%  {opacity:0.2;}
+  100% {opacity:0;}
+}
+@-webkit-keyframes seventh {
+   0%   {opacity:0;}
+  70%  {opacity:0.2;}
+  80%  {opacity:1;}
+  90%  {opacity:0.2;}
+  100% {opacity:0;}
+}
+@-webkit-keyframes eighth {
+   0%   {opacity:0;}
+  80%  {opacity:0.2;}
+  90%  {opacity:1;}
+  100% {opacity:0;}
+}
