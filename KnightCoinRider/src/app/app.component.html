@@ -12,6 +12,9 @@
                 <a class="nav-link" [routerLink]="['signup']">SignUp</a>
             </li>
             <li *ngIf="this.session.isAuth" class="nav-item">
+                <a class="nav-link" [routerLink]="['kitt']">KITT</a>
+            </li>
+            <li *ngIf="this.session.isAuth" class="nav-item">
                 <a class="nav-link" [routerLink]="['help']">Help</a>
             </li>
             <li *ngIf="this.session.isAuth" class="nav-item">

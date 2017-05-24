@@ -15,6 +15,7 @@ import { HelpComponent } from './help/help.component';
 import { WikipediaService } from './wikipedia.service';
 import { SessionService } from './session.service';
 import { SettingsService } from './settings.service';
+import { ExchangesService } from './exchanges.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'landing-page', pathMatch: 'full' },
@@ -43,7 +44,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     BrowserAnimationsModule
   ],
-  providers: [WikipediaService, SessionService, SettingsService],
+  providers: [WikipediaService, SessionService, SettingsService, ExchangesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { KittAIService } from '../kitt-ai.service';
 import { SessionService } from '../session.service';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css'],
-  providers: [KittAIService]
+  styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
   newUser = {
@@ -19,13 +17,12 @@ export class SignupComponent implements OnInit {
   error: string;
 
   constructor(
-    private kitt: KittAIService,
     private session: SessionService,
     private router: Router
   ) { }
 
   ngOnInit() {
-    this.kitt.kittNavigation();
+    
   }
 
   signup() {

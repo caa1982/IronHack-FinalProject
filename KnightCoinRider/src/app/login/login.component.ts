@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionService } from '../session.service';
-import { KittAIService } from '../kitt-ai.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
-  providers: [KittAIService]
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
   user = {
@@ -17,10 +15,10 @@ export class LoginComponent implements OnInit {
 
   error: string;
   
-  constructor(private router: Router, private kitt: KittAIService, private session: SessionService) { }
+  constructor(private router: Router, private session: SessionService) { }
 
   ngOnInit() {
-    this.kitt.kittNavigation();
+
   }
 
  login() {
@@ -29,6 +27,7 @@ export class LoginComponent implements OnInit {
 				            if (result === true) {
 			                // login successful
 			                this.router.navigate(['/kitt']);
+                      
 			         			} else {
 			                // login failed
 			                this.error = 'Username or password is incorrect';

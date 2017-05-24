@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { KittAIService } from '../kitt-ai.service';
 import { WikipediaService } from '../wikipedia.service';
-
+import { ExchangesService } from '../exchanges.service';
 
 @Component({
   selector: 'app-kitt',
@@ -12,15 +12,19 @@ import { WikipediaService } from '../wikipedia.service';
 export class KittComponent implements OnInit {
   wikiTitle: string;
   wikiArticle: string;
+  kittStart: boolean = true;
 
   constructor(
     private kitt: KittAIService,
     private wikipedia: WikipediaService,
+    private exchanges: ExchangesService,
   ) { }
 
   ngOnInit() {
-    this.kitt.startMessage();
+    this.kitt.start();
+    this.exchanges.api();
   }
+
 
   kittInput(userInput) {
     if (userInput.value.includes('wiki')) {

@@ -6,7 +6,7 @@ const upload = require('../config/multer');
 const passport = require('../config/passport');
 var jwtDecode = require('jwt-decode');
 
-/* EDIT Settings. */
+/* EDIT/ADD Settings. */
 router.put('/', (req, res) => {
   console.log("request", req.user._id)
   Users.findByIdAndUpdate(req.user._id, {

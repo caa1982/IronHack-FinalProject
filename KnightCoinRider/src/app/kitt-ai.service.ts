@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class KittAIService {
-  textToSpeech: 'Welcome, Cyril! Ask me anything...';
+  textToSpeech: '';
   kittCSS: boolean;
-  speechToText: 'hello';
+  speechToText: '';
 
   constructor(private router: Router, private ref: ChangeDetectorRef) { }
 
@@ -24,12 +24,12 @@ export class KittAIService {
   }
 
   // start message
-  startMessage(){
-    this.kittSay('Welcome, Cyril! Say help or type help below to see what I can do..', ArtyomBuilder.getInstance());
+  start() {
+    this.kittSay('Welcome, Say help or type help below to see what I can do...', ArtyomBuilder.getInstance());
   }
 
   // wikipedia read article
-  wiki(article){
+  wiki(article) {
     const that = this;
     const artyom = ArtyomBuilder.getInstance();
 
@@ -163,7 +163,7 @@ export class KittAIService {
   }
 
   // kitt only reply via text
-  KittType(type, artyom){
+  KittType(type, artyom) {
     this.textToSpeech = type;
     artyom.fatality();
   }
