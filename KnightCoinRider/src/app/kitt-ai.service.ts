@@ -9,11 +9,11 @@ export class KittAIService {
   speechToText: '';
 
   constructor(private router: Router, private ref: ChangeDetectorRef) { }
+  artyom: any;
 
   // Artyom Settings
-  settings(artyom) {
-
-    artyom.initialize({
+  settings() {
+    this.artyom.initialize({
       lang: 'en-US',
       continuous: true,
       soundex: true,
@@ -25,19 +25,20 @@ export class KittAIService {
 
   // start message
   start(say) {
-    this.kittSay(say, ArtyomBuilder.getInstance());
+    this.artyom = ArtyomBuilder.getInstance()
+    this.kittSay(say);
   }
 
   // wikipedia read article
   read(say) {
     const that = this;
-    const artyom = ArtyomBuilder.getInstance();
+    this.artyom = ArtyomBuilder.getInstance();
 
-    this.settings(artyom);
+    this.settings();
 
-    artyom.say(say, {
+    this.artyom.say(say, {
       onStart: () => {
-        artyom.fatality();
+        this.artyom.fatality();
         that.kittCSS = true;
         that.ref.detectChanges();
       },
@@ -50,23 +51,23 @@ export class KittAIService {
 
   // navigate amoung different components on the Navbar
   kittNavigation() {
-    const artyom = ArtyomBuilder.getInstance();
+    this.artyom = ArtyomBuilder.getInstance();
 
-    this.settings(artyom);
+    this.settings();
 
-    artyom.addCommands({
+    this.artyom.addCommands({
       description: 'setting',
       indexes: ['settings', 'setting'],
       action: (i) => {
-        this.route('settings', artyom);
+        this.route('settings');
       }
     });
 
-    artyom.addCommands({
+    this.artyom.addCommands({
       description: 'dashboard',
       indexes: ['kitt', 'dashboard'],
       action: (i) => {
-        this.route('kitt', artyom);
+        this.route('kitt');
       }
     });
 
@@ -74,70 +75,75 @@ export class KittAIService {
   }
 
   // route the user to a page
-  route(page, artyom) {
-    artyom.say('Sure lets go to the ' + page + ' page');
-    artyom.fatality();
+  route(page) {
+    this.artyom.say('Sure lets go to the ' + page + ' page');
+    this.artyom.fatality();
     this.router.navigate(['/' + page]);
   }
 
   // kitt Listen and reply
   listen() {
-    const artyom = ArtyomBuilder.getInstance();
+    this.artyom = ArtyomBuilder.getInstance();
     const that = this;
 
-    this.settings(artyom);
+    this.settings();
 
-    artyom.addCommands({
+    this.artyom.addCommands({
       description: 'Test command',
       indexes: ['hello', 'hi'],
       action: (i) => {
-        this.kittSay('Hello! How are you doing?', artyom);
+        this.kittSay('Hello! How are you doing?');
       }
     });
 
-    artyom.addCommands({
+    this.artyom.addCommands({
       description: 'turn Kitt off',
       indexes: ['stop', 'stuff'],
       action: (i) => {
-        this.KittType('you killed KITT!!', artyom);
+        this.KittType('You killed KITT!!');
       }
     });
 
-    artyom.addCommands({
+    this.artyom.addCommands({
       description: 'buy',
       indexes: ['buy', 'by', 'bye'],
       action: (i) => {
         console.log('buy');
-        this.kittSay('Sure, lets buy some coins. Which exchange would you like to buy from? Click on an exchange below', artyom);
+        this.kittSay('Sure, lets buy some coins. Which exchange would you like to buy from? Click on an exchange below');
       }
     });
 
 
-    artyom.addCommands({
+    this.artyom.addCommands({
       description: 'sell',
       indexes: ['sell', 'cell', 'so'],
       action: (i) => {
         console.log('sell');
-        this.kittSay('Sure, lets sell some coins. Which exchange would you like to sell from? Click on an exchange below', artyom);
+        this.kittSay('Sure, lets sell some coins. Which exchange would you like to sell from? Click on an exchange below');
       }
     });
 
   }
 
+  //kill kitt
+  killKitt() {
+    this.KittType('you killed KITT!!');
+  }
+
   // kitt only reply via text
-  KittType(type, artyom) {
+  KittType(type) {
     this.textToSpeech = type;
-    artyom.fatality();
+    this.artyom.fatality();
   }
 
   // kitt reply via voice text and audio
-  kittSay(say, artyom) {
+  kittSay(say) {
     const that = this;
-    console.log(artyom.getVoices());
+    console.log(this.artyom.getVoices());
 
-    artyom.say(say, {
+    this.artyom.say(say, {
       onStart: () => {
-        artyom.fatality();
+        this.artyom.fatality();
         that.textToSpeech = say;
         that.kittCSS = true;
         that.ref.detectChanges();

@@ -11,13 +11,14 @@ p{
 }
 
 .container{
-  width: 100vw;
+  width: 310px;
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
   justify-content: center;
+  cursor: pointer;
 }
 
 .inner {
@@ -93,4 +94,20 @@ input{
 
 a {
   text-decoration: none;
+}
+
+.kittLed{
+  width: 25px;
+	height: 25px;
+	-moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+	border-radius: 50px; 
+  position: absolute;
+  right: 0;
+  margin-right: 3%;
+  margin-top: 3%;
+}
+
+.coinContainer{
+  width: 100%;
 }

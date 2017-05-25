@@ -12,6 +12,7 @@ import { Router, NavigationEnd } from '@angular/router';
   providers: [KittAIService, WikipediaService],
 })
 export class KittComponent implements OnInit {
+  color = "green";
   wikiTitle: string;
   wikiArticle: string;
   showOrder: boolean;
@@ -51,14 +52,30 @@ export class KittComponent implements OnInit {
     else if (userInput.value.match("check")) {
       this.check(userInput);
     }
-    else{
-      let say = "Please check the help page, your input to trade a coin is incorrect!";
+    else {
+      let say = "Please check the help page, your input is incorrect!";
       this.kitt.read(say);
     }
   };
 
+  killKitt() {
+    if (this.color == "green") {
+      this.color = "red";
+      this.kitt.killKitt();
+    } else {
+      this.color = "green";
+      this.kitt.start("Hi again, your wish is my command!");;
+    }
+  }
+
+  checkKitt(say){
+    if (this.color == "green") {
+      this.kitt.read(say);
+    } 
+  }
+
   trading(userInput) {
-    
+
     let input = userInput.value.toLowerCase().split(' ');
     if (input.length === 7) {
       this.trade.order = input[0];
@@ -70,10 +87,10 @@ export class KittComponent implements OnInit {
       this.checkTicker = false;
       this.showOrder = true;
       let say = "are you sure you want to " + userInput.value + "?";
-      this.kitt.read(say);
-    } else{
+      this.checkKitt(say);
+    } else {
       let say = "Please check the help page, your input to trade a coin is incorrect!";
-      this.kitt.read(say);
+      this.checkKitt(say);
     }
 
   }
@@ -89,7 +106,7 @@ export class KittComponent implements OnInit {
           this.coin = el;
           console.log(this.coin)
           this.checkTicker = true;
-          this.kitt.read(el.name + ' is trading at an average of ' + el.price_usd + " dollar");
+          this.checkKitt(el.name + ' is trading at an average of ' + el.price_usd + " dollar");
         }
       });
     });
@@ -106,13 +123,13 @@ export class KittComponent implements OnInit {
         this.wikiArticle = article.query.pages[Object.keys(article.query.pages).toString()].extract;
         if (this.wikiArticle.includes('.')) {
           this.wikiArticle = this.wikiArticle.substring(0, this.wikiArticle.indexOf('.'));
-        }else {
+        } else {
           this.wikiArticle = 'Please search again, it seems your search has no wikipedia entry'
         }
         if (this.wikiArticle.includes('From other capitalisation')) {
           this.wikiArticle = 'Please search again, Names and Surname should start with capital letter'
         }
-        this.kitt.read(this.wikiArticle);
+        this.checkKitt(this.wikiArticle);
       });
   }
 
