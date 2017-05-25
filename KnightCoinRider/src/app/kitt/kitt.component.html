@@ -7,7 +7,7 @@
 </div>
 <p>{{kitt.textToSpeech}}</p>
 <div id="inputBox" class="input-group margin-bottom-sm text-center">
-  <input class="form-control" type="text" placeholder="KITT intsructions" #userInput>
+  <input class="form-control" type="text" placeholder="KITT intsructions" (keyup.enter)="kittInput(userInput)" #userInput>
   <button type="button" class="btn btn-outline-success" (click)="kittInput(userInput)">Enter</button>
 </div>
 <div *ngIf="showWiki">
@@ -19,7 +19,7 @@
   <br>
   <p id="tradeUserInput">Are you sure you want to {{ trade.order }} {{ trade.qty }} {{ trade.ticker }} @ {{ trade.price }} from {{ trade.exchange
     }} ?</p>
-  <button type="submit" class="btn btn-outline-success">YES</button>
+  <button type="submit" class="btn btn-outline-success" (click)="poloniex()">YES</button>
   <button type="submit" class="btn btn-outline-danger">NO</button>
 </div>
 <div *ngIf="checkTicker">

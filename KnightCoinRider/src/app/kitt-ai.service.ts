@@ -1,14 +1,18 @@
 import { Injectable, ChangeDetectorRef } from '@angular/core';
 import { ArtyomBuilder } from 'artyom.js';
 import { Router } from '@angular/router';
+import { SessionService } from './session.service';
 
 @Injectable()
 export class KittAIService {
-  textToSpeech: '';
   kittCSS: boolean;
-  speechToText: '';
+  textToSpeech: '';
 
-  constructor(private router: Router, private ref: ChangeDetectorRef) { }
+  constructor(
+    private router: Router,
+    private ref: ChangeDetectorRef,
+    private session: SessionService
+  ) { }
   artyom: any;
 
   // Artyom Settings
@@ -27,6 +31,7 @@ export class KittAIService {
   start(say) {
     this.artyom = ArtyomBuilder.getInstance()
     this.kittSay(say);
+    this.kittNavigation();
   }
 
   // wikipedia read article
@@ -51,15 +56,20 @@ export class KittAIService {
 
   // navigate amoung different components on the Navbar
   kittNavigation() {
-    this.artyom = ArtyomBuilder.getInstance();
-
-    this.settings();
 
     this.artyom.addCommands({
       description: 'setting',
       indexes: ['settings', 'setting'],
       action: (i) => {
         this.route('settings');
+      }
+    });
+
+    this.artyom.addCommands({
+      description: 'help',
+      indexes: ['help'],
+      action: (i) => {
+        this.route('help');
       }
     });
 
@@ -71,6 +81,14 @@ export class KittAIService {
       }
     });
 
+    this.artyom.addCommands({
+      description: 'logout',
+      indexes: ['logout', 'exit'],
+      action: (i) => {
+        this.kittSay("See you soon");
+        this.session.logout();;
+      }
+    });
 
   }
 
@@ -108,7 +126,6 @@ export class KittAIService {
       description: 'buy',
       indexes: ['buy', 'by', 'bye'],
       action: (i) => {
-        console.log('buy');
         this.kittSay('Sure, lets buy some coins. Which exchange would you like to buy from? Click on an exchange below');
       }
     });
@@ -118,7 +135,6 @@ export class KittAIService {
       description: 'sell',
       indexes: ['sell', 'cell', 'so'],
       action: (i) => {
-        console.log('sell');
         this.kittSay('Sure, lets sell some coins. Which exchange would you like to sell from? Click on an exchange below');
       }
     });
@@ -139,7 +155,6 @@ export class KittAIService {
   // kitt reply via voice text and audio
   kittSay(say) {
     const that = this;
-    console.log(this.artyom.getVoices());
 
     this.artyom.say(say, {
       onStart: () => {
@@ -154,6 +169,7 @@ export class KittAIService {
         that.listen();
       }
     });
+
   }
 
 

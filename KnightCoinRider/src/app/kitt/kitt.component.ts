@@ -3,6 +3,7 @@ import { KittAIService } from '../kitt-ai.service';
 import { WikipediaService } from '../wikipedia.service';
 import { ExchangesService } from '../exchanges.service';
 import { CoinmarketcapService } from '../coinmarketcap.service';
+import { PoloniexService } from '../poloniex.service';
 import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
@@ -27,19 +28,21 @@ export class KittComponent implements OnInit {
     exchange: '',
   }
 
-
-
   constructor(
     private kitt: KittAIService,
     private wikipedia: WikipediaService,
     private exchanges: ExchangesService,
     private coinmarketcap: CoinmarketcapService,
+    private polo: PoloniexService,
     private router: Router
   ) { }
 
   ngOnInit() {
     this.kitt.start("Welcome, say Help or type help below to see what I can do...");
-    this.exchanges.api();
+  }
+
+  poloniex(){
+    this.polo.polo(this.trade);
   }
 
   kittInput(userInput) {
@@ -99,12 +102,10 @@ export class KittComponent implements OnInit {
     this.showOrder = false;
     this.showWiki = false;
     const ticker = userInput.value.replace('check', '').replace(' ', '')
-    console.log(ticker)
     this.coinmarketcap.coinmarketcap().subscribe(result => {
       result.forEach(el => {
         if (el.symbol === ticker.toUpperCase() || el.id === ticker || el.name === ticker) {
           this.coin = el;
-          console.log(this.coin)
           this.checkTicker = true;
           this.checkKitt(el.name + ' is trading at an average of ' + el.price_usd + " dollar");
         }

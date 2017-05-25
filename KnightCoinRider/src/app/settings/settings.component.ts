@@ -28,7 +28,7 @@ export class SettingsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.kitt.kittNavigation();
+    this.kitt.start(" ");
   }
 
   submit() {

@@ -1,23 +1,23 @@
-const express      = require('express');
-const path         = require('path');
-const favicon      = require('serve-favicon');
-const logger       = require('morgan');
-const cookieParser = require('cookie-parser');
-const bodyParser   = require('body-parser');
-const passport   = require('./config/passport');
-const auth         = require('./routes/auth');
-const coinmarket   = require('./routes/coinmarketcap');
-const settings     = require('./routes/settings');
-const cors         = require('cors');
+const express       = require('express');
+const path          = require('path');
+const favicon       = require('serve-favicon');
+const logger        = require('morgan');
+const cookieParser  = require('cookie-parser');
+const bodyParser    = require('body-parser');
+const passport      = require('./config/passport');
+const auth          = require('./routes/auth');
+const coinmarket    = require('./routes/coinmarketcap');
+const settings      = require('./routes/settings');
+const cors          = require('cors');
 const coinmarketcap = require('./helper/coinmarketcap');
-
+const polo          = require('./routes/poloniex');
 
 
 require('./config/database');
-var app = express();
+const app = express();
 
 
-var corsOptions = {credentials: true, origin: 'http://localhost:4200'};
+let corsOptions = {credentials: true, origin: 'http://localhost:4200'};
 
 app.options('*', cors(corsOptions));
 app.use(cors(corsOptions));
@@ -33,10 +33,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', auth);
 app.use('/settings', passport.authenticate('jwt', { session: false }), settings);
 app.use('/coinmarketcap', passport.authenticate('jwt', { session: false }), coinmarket);
+app.use('/poloniex', passport.authenticate('jwt', { session: false }), polo);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  let err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
