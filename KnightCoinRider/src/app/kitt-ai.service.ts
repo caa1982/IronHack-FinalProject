@@ -24,18 +24,18 @@ export class KittAIService {
   }
 
   // start message
-  start() {
-    this.kittSay('Welcome, Say help or type help below to see what I can do...', ArtyomBuilder.getInstance());
+  start(say) {
+    this.kittSay(say, ArtyomBuilder.getInstance());
   }
 
   // wikipedia read article
-  wiki(article) {
+  read(say) {
     const that = this;
     const artyom = ArtyomBuilder.getInstance();
 
     this.settings(artyom);
 
-    artyom.say(article, {
+    artyom.say(say, {
       onStart: () => {
         artyom.fatality();
         that.kittCSS = true;
@@ -63,20 +63,13 @@ export class KittAIService {
     });
 
     artyom.addCommands({
-      description: 'login',
-      indexes: ['login', 'log in', 'log', 'london', 'looking'],
+      description: 'dashboard',
+      indexes: ['kitt', 'dashboard'],
       action: (i) => {
-        this.route('login', artyom);
+        this.route('kitt', artyom);
       }
     });
 
-    artyom.addCommands({
-      description: 'signup',
-      indexes: ['signup', 'register', 'sign up'],
-      action: (i) => {
-        this.route('signup', artyom);
-      }
-    });
 
   }
 
@@ -98,23 +91,7 @@ export class KittAIService {
       description: 'Test command',
       indexes: ['hello', 'hi'],
       action: (i) => {
-        this.kittSay('Hello, cyril! How are you Doing?', artyom);
-      }
-    });
-
-    artyom.addCommands({
-      description: 'Test command',
-      indexes: ['one', '1'],
-      action: (i) => {
-        this.kittSay('please select a coin below?', artyom);
-      }
-    });
-
-    artyom.addCommands({
-      description: 'Test command',
-      indexes: ['two', 'to', '2'],
-      action: (i) => {
-        this.kittSay('please select a coin below?', artyom);
+        this.kittSay('Hello! How are you doing?', artyom);
       }
     });
 
@@ -135,14 +112,6 @@ export class KittAIService {
       }
     });
 
-    artyom.addCommands({
-      description: 'trade',
-      indexes: ['trade'],
-      action: (i) => {
-        console.log('trade');
-        this.kittSay('Sure, do you want to Buy or Sell?', artyom);
-      }
-    });
 
     artyom.addCommands({
       description: 'sell',
@@ -153,13 +122,6 @@ export class KittAIService {
       }
     });
 
-    artyom.addCommands({
-      description: 'bitcoin',
-      indexes: ['bitcoin', 'bitcoins', 'btc', 'bbc', 'big'],
-      action: (i) => {
-        console.log('bitcoin');
-      }
-    });
   }
 
   // kitt only reply via text

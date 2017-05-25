@@ -16,6 +16,7 @@ import { WikipediaService } from './wikipedia.service';
 import { SessionService } from './session.service';
 import { SettingsService } from './settings.service';
 import { ExchangesService } from './exchanges.service';
+import { CoinmarketcapService } from './coinmarketcap.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'landing-page', pathMatch: 'full' },
@@ -44,7 +45,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     BrowserAnimationsModule
   ],
-  providers: [WikipediaService, SessionService, SettingsService, ExchangesService],
+  providers: [WikipediaService, SessionService, SettingsService, ExchangesService, CoinmarketcapService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -37,7 +37,7 @@ p{
   bottom: 50%;
   position: absolute;
   background: white;
-  animation: audio-wave 1.5s infinite alternate ease-out;
+  animation: audio-wave 0.9s infinite alternate ease-out;
 }
 
 @keyframes audio-wave {
@@ -79,3 +79,18 @@ input{
   padding-right: 2%;
 }
 
+#tradeUserInput{
+  color: white;
+  font-size: 25px;
+  padding-left: 2%;
+  padding-right: 2%;
+}
+
+.smallText{
+  color: white;
+  font-size: 25px;
+}
+
+a {
+  text-decoration: none;
+}

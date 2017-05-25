@@ -9,8 +9,31 @@
   <input class="form-control" type="text" placeholder="KITT intsructions" #userInput>
   <button type="button" class="btn btn-outline-success" (click)="kittInput(userInput)">Enter</button>
 </div>
-<div>
+<div *ngIf="showWiki">
   <br>
-  <a  id="wikiTitle" target="_blank" href="https://en.wikipedia.org/wiki/{{ wikiTitle }}">{{ wikiTitle }}</a>
+  <a id="wikiTitle" target="_blank" href="https://en.wikipedia.org/wiki/{{ wikiTitle }}">{{ wikiTitle }}</a>
   <p id="wikiArticle">{{ wikiArticle }}</p>
 </div>
+<div *ngIf="showOrder" id="trade">
+  <br>
+  <p id="tradeUserInput">Are you sure you want to {{ trade.order }} {{ trade.qty }} {{ trade.ticker }} @ {{ trade.price }} from {{ trade.exchange
+    }} ?</p>
+  <button type="submit" class="btn btn-outline-success">YES</button>
+  <button type="submit" class="btn btn-outline-danger">NO</button>
+</div>
+<div *ngIf="checkTicker">
+  <br>
+  <a target="_blank" href="https://coinmarketcap.com/currencies/{{ coin.id }}"><p><img src="https://files.coinmarketcap.com/static/img/coins/32x32/{{coin.id}}.png"> {{coin.name}}</p></a>
+  <div class="container">
+    <div class="row">
+      <div class="col col-md-auto">
+        <p class="smallText">{{coin.price_usd}} USD</p>
+      </div>
+      <div class="col col-md-auto">
+        <p class="smallText">{{coin.price_btc}} BTC</p>
+      </div>
+      <div class="col col-md-auto">
+        <p class="smallText">{{coin.percent_change_24h}}%</p>
+      </div>
+    </div>
+  </div>
