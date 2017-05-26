@@ -5,23 +5,16 @@ const Users = require('../model/user');
 const passport = require('../config/passport');
 const jwtDecode = require('jwt-decode');
 const Poloniex = require('poloniex-api-node');
-
+   
 
 /* EDIT/ADD Settings. */
-router.put('/', (req, res) => {
-    console.log("hi")
+router.post('/', (req, res) => {
+    console.log("hi", req.body);
   Users.findById(req.user._id, function (err, user) {
-   let poloniex = new Poloniex(user.PoloniexKeyAPI, PoloniexSecretAPI);
+   let poloniex = new Poloniex(user.PoloniexKeyAPI, user.PoloniexSecretAPI);
    poloniex.returnBalances(function(err, data) {
-       console.log(data)
+       res.json(data);
    })
-  }, (err) => {
-    if (err) {
-      return res.send(err);
-    }
-    return res.json({
-      message: 'settings input successful'
-    });
   });
 
 })

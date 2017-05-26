@@ -18,7 +18,7 @@ export class SettingsService {
   settings(result) {
     let headers = new Headers({ 'Authorization': 'JWT ' + this.SessionService.token });
     let options = new RequestOptions({ headers: headers });
-    return this.http.put(`${this.BASE_URL}/settings`, result, options )
+    return this.http.post(`${this.BASE_URL}/settings`, result, options )
       .map((res) => res.json());
   }
 

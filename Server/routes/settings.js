@@ -5,8 +5,11 @@ const Users = require('../model/user');
 const passport = require('../config/passport');
 const jwtDecode = require('jwt-decode');
 
+console.log("test")
+
 /* EDIT/ADD Settings. */
-router.put('/', (req, res) => {
+router.post('/', (req, res) => {
+  console.log("hi", req.user._id)
   Users.findByIdAndUpdate(req.user._id, {
     PoloniexKeyAPI: req.body.PoloniexKey,
     PoloniexSecretAPI: req.body.PoloniexSecret,
@@ -14,13 +17,6 @@ router.put('/', (req, res) => {
     BittrexSecretAPI: req.body.BittrexSecret,
     KrakenKeyAPI: req.body.KrakenKey,
     KrakenSecretAPI: req.body.KrakenSecret
-  }, (err) => {
-    if (err) {
-      return res.send(err);
-    }
-    return res.json({
-      message: 'settings input successful'
-    });
   });
 
 })

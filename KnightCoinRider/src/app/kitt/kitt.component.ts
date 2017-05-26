@@ -42,7 +42,9 @@ export class KittComponent implements OnInit {
   }
 
   poloniex(){
-    this.polo.polo(this.trade);
+    this.polo.polo(this.trade).subscribe(result => {
+      console.log(result)
+    })
   }
 
   kittInput(userInput) {

@@ -32,6 +32,7 @@ export class SettingsComponent implements OnInit {
   }
 
   submit() {
+    console.log(this.userSetting)
     this.settings.settings(this.userSetting).subscribe(result => {
 				            if (result === true) {
 			                // login successful

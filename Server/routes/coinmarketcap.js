@@ -4,6 +4,7 @@ const router = express.Router();
 const Coin = require('../model/coin');
 
 
+
 /* show Cointmarketcap */
 router.get('/', (req, res) => {
     Coin.find({}, function (err, coin) {
