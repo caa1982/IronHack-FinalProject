@@ -14,12 +14,23 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class KittComponent implements OnInit {
   color = "green";
+  keysGetter = Object.keys;
   wikiTitle: string;
   wikiArticle: string;
   showOrder: boolean;
   showWiki: boolean;
-  checkTicker: boolean;
+  showTicker: boolean;
+  showBalance: boolean;
+  showExecution: boolean;
+  loading: boolean;
   coin: object;
+  exchangeBalance: object;
+  executionOrder = {
+    order: '',
+    amount: '',
+    price: '',
+    total: ''
+  };
   trade = {
     order: '',
     qty: '',
@@ -41,12 +52,7 @@ export class KittComponent implements OnInit {
     this.kitt.start("Welcome, say Help or type help below to see what I can do...");
   }
 
-  poloniex(){
-    this.polo.polo(this.trade).subscribe(result => {
-      console.log(result)
-    })
-  }
-
+  // look for User Input on the Kitt input box 
   kittInput(userInput) {
     if (userInput.value.match("wiki*")) {
       this.wiki(userInput);
@@ -57,12 +63,27 @@ export class KittComponent implements OnInit {
     else if (userInput.value.match("check")) {
       this.check(userInput);
     }
+    else if (userInput.value.match("portfolio")) {
+      this.balance(userInput);
+    }
     else {
       let say = "Please check the help page, your input is incorrect!";
       this.kitt.read(say);
     }
   };
 
+  // toogle all none obesevable div in HTML
+  toogle(propertyKey) {
+    this.showOrder = false;
+    this.showWiki = false;
+    this.showTicker = false;
+    this.showBalance = false;
+    this.showExecution = false;
+    this.loading = false;
+    this[propertyKey] = (this[propertyKey] == true ? false : true)
+  }
+
+  // on/off kitt reply 
   killKitt() {
     if (this.color == "green") {
       this.color = "red";
@@ -73,10 +94,37 @@ export class KittComponent implements OnInit {
     }
   }
 
-  checkKitt(say){
+  // check kitt led if green kitt speak
+  checkKitt(say) {
     if (this.color == "green") {
       this.kitt.read(say);
-    } 
+    }
+  }
+
+  // send a sell or buy order to poloniex
+  poloniex() {
+    this.polo.polo(this.trade).subscribe(result => {
+      console.log(result)
+      if (result.resultingTrades !== undefined) {
+        var amount = 0, total = 0;
+        for (var key in result.resultingTrades) {
+          amount += Number(result.resultingTrades[key].amount);
+          total += Number(result.resultingTrades[key].rate) * Number(result.resultingTrades[key].amount);
+        };
+        this.executionOrder.order = this.trade.order  == "buy" ? "bought" : "sold";
+        this.executionOrder.amount = amount.toString();
+        this.executionOrder.total = total.toString();
+        this.executionOrder.price = (total / amount).toString();
+        this.checkKitt("you " + this.executionOrder.order
+        + this.executionOrder.amount + this.trade.ticker + " @ " + this.executionOrder.price + " BTC");
+        this.toogle("showExecution");
+      }
+      else{
+        this.checkKitt(result.error + ", please try again or see the help page for more informations");
+      }
+
+      
+    })
   }
 
   trading(userInput) {
@@ -88,9 +136,7 @@ export class KittComponent implements OnInit {
       this.trade.ticker = input[2];
       this.trade.price = input[4];
       this.trade.exchange = input[6];
-      this.showWiki = false;
-      this.checkTicker = false;
-      this.showOrder = true;
+      this.toogle("showOrder");
       let say = "are you sure you want to " + userInput.value + "?";
       this.checkKitt(say);
     } else {
@@ -100,25 +146,42 @@ export class KittComponent implements OnInit {
 
   }
 
+  // return coinmarketcap info on a specific coin
   check(userInput) {
-    this.showOrder = false;
-    this.showWiki = false;
     const ticker = userInput.value.replace('check', '').replace(' ', '')
     this.coinmarketcap.coinmarketcap().subscribe(result => {
       result.forEach(el => {
         if (el.symbol === ticker.toUpperCase() || el.id === ticker || el.name === ticker) {
           this.coin = el;
-          this.checkTicker = true;
+          this.toogle("showTicker");
           this.checkKitt(el.name + ' is trading at an average of ' + el.price_usd + " dollar");
         }
       });
     });
   }
 
+  //check for porfolio exchange balance
+  balance(userInput) {
+    this.toogle("loading");
+    const input = { ticker: userInput.value.toLowerCase().replace('portfolio', '').replace(' ', '') };
+    if (input.ticker === "poloniex") {
+      this.polo.polo(input).subscribe(result => {
+        for (var key in result) {
+          if (result[key] == 0) {
+            delete result[key];
+          }
+          else if (result[key] > 1) {
+            result[key] = parseFloat(result[key]).toFixed(2);
+          }
+        }
+        this.exchangeBalance = result;
+        this.toogle("showBalance");
+      });
+    }
+  }
+
+  // check for wikipedia entry
   wiki(userInput) {
-    this.checkTicker = false;
-    this.showOrder = false;
-    this.showWiki = true;
     const wordSearch = userInput.value.replace('wiki', '').replace('pedia', '');
     this.wikipedia.getWikipediaArticle(wordSearch)
       .subscribe((article) => {
@@ -133,6 +196,7 @@ export class KittComponent implements OnInit {
           this.wikiArticle = 'Please search again, Names and Surname should start with capital letter'
         }
         this.checkKitt(this.wikiArticle);
+        this.toogle("showWiki");
       });
   }
 

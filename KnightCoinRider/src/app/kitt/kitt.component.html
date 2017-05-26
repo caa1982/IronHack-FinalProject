@@ -10,11 +10,13 @@
   <input class="form-control" type="text" placeholder="KITT intsructions" (keyup.enter)="kittInput(userInput)" #userInput>
   <button type="button" class="btn btn-outline-success" (click)="kittInput(userInput)">Enter</button>
 </div>
+
 <div *ngIf="showWiki">
   <br>
   <a id="wikiTitle" target="_blank" href="https://en.wikipedia.org/wiki/{{ wikiTitle }}">{{ wikiTitle }}</a>
   <p id="wikiArticle">{{ wikiArticle }}</p>
 </div>
+
 <div *ngIf="showOrder" id="trade">
   <br>
   <p id="tradeUserInput">Are you sure you want to {{ trade.order }} {{ trade.qty }} {{ trade.ticker }} @ {{ trade.price }} from {{ trade.exchange
@@ -22,9 +24,12 @@
   <button type="submit" class="btn btn-outline-success" (click)="poloniex()">YES</button>
   <button type="submit" class="btn btn-outline-danger">NO</button>
 </div>
-<div *ngIf="checkTicker">
+
+<div *ngIf="showTicker">
   <br>
-  <a target="_blank" href="https://coinmarketcap.com/currencies/{{ coin.id }}"><p><img src="https://files.coinmarketcap.com/static/img/coins/32x32/{{coin.id}}.png"> {{coin.name}}</p></a>
+  <a target="_blank" href="https://coinmarketcap.com/currencies/{{ coin.id }}">
+    <p><img src="https://files.coinmarketcap.com/static/img/coins/32x32/{{coin.id}}.png"> {{coin.name}}</p>
+  </a>
   <div class="coinContainer container">
     <div class="row">
       <div class="col col-md-auto">
@@ -38,3 +43,32 @@
       </div>
     </div>
   </div>
+</div>
+
+<div *ngIf="showBalance">
+  <div class="portfolioContainer container">
+    <div class="row">
+      <div class="col col-md-auto" *ngFor="let key of keysGetter(exchangeBalance)">
+        {{key + ' : ' + exchangeBalance[key]}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="showExecution">
+  <p class="smallText">you {{executionOrder.order}} {{executionOrder.amount}} {{trade.ticker}} @ {{executionOrder.price}}</p>
+</div>
+
+<div *ngIf="loading">
+  <div id='kitt'>
+    <p>Loading</p>
+    <div class='one'></div>
+    <div class='two'></div>
+    <div class='three'></div>
+    <div class='four'></div>
+    <div class='five'></div>
+    <div class='six'></div>
+    <div class='seven'></div>
+    <div class='eight'></div>
+  </div>
+</div>

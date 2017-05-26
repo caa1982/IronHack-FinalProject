@@ -7,13 +7,13 @@ import { SessionService } from './session.service';
 export class KittAIService {
   kittCSS: boolean;
   textToSpeech: '';
+  artyom: any;
 
   constructor(
     private router: Router,
     private ref: ChangeDetectorRef,
     private session: SessionService
   ) { }
-  artyom: any;
 
   // Artyom Settings
   settings() {
