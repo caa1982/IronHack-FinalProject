@@ -6,7 +6,7 @@ import { SessionService } from './session.service';
 @Injectable()
 export class KittAIService {
   kittCSS: boolean;
-  textToSpeech: '';
+  textToSpeech: string;
   artyom: any;
 
   constructor(

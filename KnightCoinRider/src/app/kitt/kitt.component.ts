@@ -103,9 +103,15 @@ export class KittComponent implements OnInit {
 
   // send a sell or buy order to poloniex
   poloniex() {
+    this.toogle("loading");
     this.polo.polo(this.trade).subscribe(result => {
-      console.log(result)
-      if (result.resultingTrades !== undefined) {
+      if(typeof result.error !== "undefined"){
+        this.toogle(" ");
+        let say = result.error + " please try again or see the help page for more informations"
+        this.kitt.textToSpeech = say;
+        this.checkKitt(say);
+      }
+      else if (result.resultingTrades.length) {
         var amount = 0, total = 0;
         for (var key in result.resultingTrades) {
           amount += Number(result.resultingTrades[key].amount);
@@ -119,11 +125,12 @@ export class KittComponent implements OnInit {
         + this.executionOrder.amount + this.trade.ticker + " @ " + this.executionOrder.price + " BTC");
         this.toogle("showExecution");
       }
-      else{
-        this.checkKitt(result.error + ", please try again or see the help page for more informations");
-      }
-
-      
+      else {
+        this.toogle(" ");
+        let say = "your order was sent to the exchange please check 'open orders' to see details or cancel it"
+        this.kitt.textToSpeech = say;
+        this.checkKitt(say)
+       }
     })
   }
 
