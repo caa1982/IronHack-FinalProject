@@ -59,6 +59,22 @@
   <p class="smallText">you {{executionOrder.order}} {{executionOrder.amount}} {{trade.ticker}} @ {{executionOrder.price}}</p>
 </div>
 
+<div *ngIf="showOpenOrders">
+  <div class="portfolioContainer container">
+    <div id="openOrders" class="row">
+      <div class="col col-md-auto" *ngFor="let orders of tickerOpenOrders">
+        <div>Order Number: {{orders.orderNumber}}</div>
+        <div>Direction: {{orders.type}}</div>
+        <div>Quantity: {{orders.amount}}</div>
+        <div>Price: {{orders.rate}}</div>
+        <div>Total: {{orders.total}}</div>
+        <div>Date: {{orders.date}}</div>
+        <button id={{orders.orderNumber}} type="submit" class="btn btn-outline-danger btnOpenOrdes" (click)="cancel($event)">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div *ngIf="loading">
   <div id='kitt'>
     <p>Loading</p>

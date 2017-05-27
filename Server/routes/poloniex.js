@@ -11,26 +11,42 @@ router.post('/', (req, res) => {
 
     Users.findById(req.user._id, function (err, user) {
         const poloniex = new Poloniex(user.PoloniexKeyAPI, user.PoloniexSecretAPI);
-        const ticker = "BTC_" + (req.body.ticker.toUpperCase());
-        const price = req.body.price;
-        const qty = req.body.qty;
 
-        if (req.body.ticker === "poloniex") {
+        if (req.body.input === "poloniex") {
 
             poloniex.returnBalances(function (err, data) {
                 res.json(data);
             });
 
-        }else if (req.body.order === "buy") {
+        } else if (req.body.order === "buy") {
+            const ticker = "BTC_" + req.body.ticker.toUpperCase();
+            const price = req.body.price;
+            const qty = req.body.qty;
 
             poloniex.buy(ticker, price, qty, null, null, null, function (err, data) {
                 res.json(data);
             });
 
-        }else if (req.body.order === "sell") {
+        } else if (req.body.order === "sell") {
+            const ticker = "BTC_" + req.body.ticker.toUpperCase();
+            const price = req.body.price;
+            const qty = req.body.qty;
 
             poloniex.sell(ticker, price, qty, null, null, null, function (err, data) {
                 res.json(data);
+            });
+
+        } else if (req.body.order === "open orders") {
+            const ticker = "BTC_" + req.body.ticker.toUpperCase();
+            
+            poloniex.returnOpenOrders(ticker, function (err, data) {
+                res.json(data);
+            });
+
+        }else if (req.body.order === 'cancel order'){
+
+            poloniex.cancelOrder(req.body.id, function (err, data){
+                    res.json(data);
             });
         }
 

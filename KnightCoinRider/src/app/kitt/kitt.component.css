@@ -118,6 +118,18 @@ a {
   margin-top: 2%;
 }
 
+#openOrders{
+  font-size: 18px;
+}
+
+.btnOpenOrdes{
+  margin-top: 2%;
+}
+
+.hidden{
+  display: none;
+}
+
 /* kitt loading*/
 
 #kitt {
