@@ -14,6 +14,7 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class KittComponent implements OnInit {
   color = "green";
+  searchValue: string = null;
   keysGetter = Object.keys;
   wikiTitle: string;
   wikiArticle: string;
@@ -61,28 +62,41 @@ export class KittComponent implements OnInit {
 
   // look for User Input on the Kitt input box 
   kittInput(userInput) {
-    if (userInput.value.match("wiki*")) {
+
+    if (userInput.value.match("wiki")) {
 
       this.wiki(userInput);
+      this.searchValue = '';
 
     } else if (userInput.value.match("buy") || userInput.value.match("sell")) {
 
       this.trading(userInput);
+      this.searchValue = '';
 
     } else if (userInput.value.match("check")) {
 
       this.check(userInput);
+      this.searchValue = '';
 
     } else if (userInput.value.match("portfolio")) {
 
       this.balance(userInput);
+      this.searchValue = '';
 
     } else if (userInput.value.match("open orders")) {
 
       this.openOrders(userInput);
+      this.searchValue = '';
 
     } else if (userInput.value.match("trade history")) {
 
+      this.tradeHistory(userInput);
+      this.searchValue = '';
+
+    } else if (userInput.value.match("order book")) {
+
+      this.orderBook(userInput);
+      this.searchValue = '';
 
 
     } else if (userInput.value.match("exchanges")) {
@@ -97,9 +111,18 @@ export class KittComponent implements OnInit {
 
 
 
+    } else if (userInput.value.match("help")) {
+
+
+
+    } else if (userInput.value.match("How to trade crypto?")) {
+
+      console.log("hi")
+
     } else {
 
       let say = "Please check the help page, your input is incorrect!";
+      this.kitt.textToSpeech = say;
       this.kitt.read(say);
 
     }
@@ -141,7 +164,32 @@ export class KittComponent implements OnInit {
     }
   }
 
-  // check open orders
+  // return order book for selected crypto
+  orderBook(userInput) {
+    this.toogle("loading");
+
+    const input = userInput.value.split(' ');
+    const data = { order: "order book", ticker: input[2] }
+
+    if (input[3] === "poloniex") {
+
+      this.polo.polo(data).subscribe(result => {
+        console.log(result);
+        this.toogle(" ");
+      });
+
+    } else {
+
+      let say = "Please check the help page, your input was incorrect!";
+      this.kitt.textToSpeech = say;
+      this.checkKitt(say);
+      this.toogle(" ");
+
+    };
+
+  }
+
+  // check open orders for selected crypto
   openOrders(userInput) {
     this.toogle("loading");
 
@@ -178,6 +226,30 @@ export class KittComponent implements OnInit {
 
   }
 
+  // check the user trade history
+  tradeHistory(userInput) {
+    this.toogle("loading");
+
+    const input = userInput.value.split(' ');
+    const data = { order: "trade history", ticker: input[2] };
+
+    if (input[3] === "poloniex") {
+
+      this.polo.polo(data).subscribe(result => {
+        if (result.length) {
+
+        }
+        else {
+          let say = "It seems you did not trade anything on " + data.ticker + " today";
+          this.kitt.textToSpeech = say;
+          this.checkKitt(say);
+          this.toogle(" ");
+        }
+      });
+
+    }
+  }
+
   // cancel order
   cancel(event) {
     this.toogle("loading");
@@ -187,12 +259,11 @@ export class KittComponent implements OnInit {
 
       this.polo.polo(data).subscribe(result => {
 
+        this.tickerOpenOrders = this.tickerOpenOrders.filter(obj => obj.orderNumber !== data.id);
+
         let say = "order was cancel";
         this.kitt.textToSpeech = say;
         this.checkKitt(say);
-
-        this.tickerOpenOrders = this.tickerOpenOrders.filter(obj => obj.orderNumber !== data.id);
-
 
         this.toogle("showOpenOrders");
       });

@@ -7,7 +7,24 @@
 </div>
 <p>{{kitt.textToSpeech}}</p>
 <div id="inputBox" class="input-group margin-bottom-sm text-center">
-  <input class="form-control" type="text" placeholder="KITT intsructions" (keyup.enter)="kittInput(userInput)" #userInput>
+  <input class="form-control" list="orders" type="text" placeholder="KITT intsructions" [(ngModel)]="searchValue" (keyup.enter)="kittInput(userInput)" #userInput>
+  <datalist id="orders">
+    <option value="How to trade crypto?">
+    <option value="help">
+    <option value="check">
+    <option value="buy">
+    <option value="sell">
+    <option value="order book">
+    <option value="graph">
+    <option value="portfolio poloniex">
+    <option value="portfolio bittrex">
+    <option value="portfolio BTC-e">
+    <option value="open orders">
+    <option value="trade history">
+    <option value="coins">
+    <option value="exchanges">
+    <option value="wiki">
+  </datalist>
   <button type="button" class="btn btn-outline-success" (click)="kittInput(userInput)">Enter</button>
 </div>
 
@@ -28,7 +45,7 @@
 <div *ngIf="showTicker">
   <br>
   <a target="_blank" href="https://coinmarketcap.com/currencies/{{ coin.id }}">
-    <p><img src="https://files.coinmarketcap.com/static/img/coins/32x32/{{coin.id}}.png"> {{coin.name}}</p>
+    <p><img src="https://files.coinmarketcap.com/static/img/coins/32x32/{{coin.id}}.png"> {{coin.name}} ({{coin.symbol}})</p>
   </a>
   <div class="coinContainer container">
     <div class="row">

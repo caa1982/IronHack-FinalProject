@@ -20,34 +20,45 @@ router.post('/', (req, res) => {
 
         } else if (req.body.order === "buy") {
             const ticker = "BTC_" + req.body.ticker.toUpperCase();
-            const price = req.body.price;
-            const qty = req.body.qty;
 
-            poloniex.buy(ticker, price, qty, null, null, null, function (err, data) {
+            poloniex.buy(ticker, req.body.price, req.body.qty, null, null, null, function (err, data) {
                 res.json(data);
             });
 
         } else if (req.body.order === "sell") {
             const ticker = "BTC_" + req.body.ticker.toUpperCase();
-            const price = req.body.price;
-            const qty = req.body.qty;
 
-            poloniex.sell(ticker, price, qty, null, null, null, function (err, data) {
+            poloniex.sell(ticker, req.body.price, req.body.qty, null, null, null, function (err, data) {
                 res.json(data);
             });
 
         } else if (req.body.order === "open orders") {
             const ticker = "BTC_" + req.body.ticker.toUpperCase();
-            
+
             poloniex.returnOpenOrders(ticker, function (err, data) {
                 res.json(data);
             });
 
-        }else if (req.body.order === 'cancel order'){
+        } else if (req.body.order === 'cancel order') {
 
-            poloniex.cancelOrder(req.body.id, function (err, data){
-                    res.json(data);
+            poloniex.cancelOrder(req.body.id, function (err, data) {
+                res.json(data);
             });
+
+        } else if (req.body.order === "trade history") {
+            const ticker = "BTC_" + req.body.ticker.toUpperCase();
+
+            poloniex.returnMyTradeHistory(ticker, null, null, function (err, data) {
+                res.json(data);
+            });
+
+        } else if (req.body.order === "order book") {
+            const ticker = "BTC_" + req.body.ticker.toUpperCase();
+
+            poloniex.returnOrderBook(ticker, "10", function (err, data) {
+                res.json(data);
+            });
+
         }
 
     });
