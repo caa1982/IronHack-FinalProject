@@ -273,7 +273,7 @@ export class KittComponent implements OnInit {
     if (this.InputUserOpenOrders.exchange === "poloniex") {
 
       this.polo.polo(this.InputUserOpenOrders).subscribe(result => {
-        console.log(result)
+
         if (result.length) {
           this.tickerOpenOrders = result;
           this.toogle("showOpenOrders");
@@ -286,6 +286,30 @@ export class KittComponent implements OnInit {
         }
 
       });
+
+    } else if (this.InputUserOpenOrders.exchange === "bittrex") {
+
+      this.bittrex.bittrex(this.InputUserOpenOrders).subscribe(result => {
+
+        this.tickerOpenOrders = [];
+
+        result.result.forEach(element => {
+
+          let BittrexOpenOrders = {
+            orderNumber: element.OrderUuid,
+            type: element.OrderType,
+            amount: element.Quantity,
+            rate: element.Limit,
+            date: element.Opened
+          };
+          
+          this.tickerOpenOrders.push(BittrexOpenOrders);
+      
+        });
+
+      });
+
+      this.toogle("showOpenOrders");
 
     } else {
 
@@ -309,7 +333,7 @@ export class KittComponent implements OnInit {
 
       this.polo.polo(data).subscribe(result => {
         if (result.length) {
-
+          console.log(result);
         }
         else {
           let say = "It seems you did not trade anything on " + data.ticker + " today";
@@ -319,6 +343,10 @@ export class KittComponent implements OnInit {
         }
       });
 
+    } else if (input[3] === "bittrex") {
+      this.bittrex.bittrex(data).subscribe(result => {
+        console.log(result);
+      });
     }
   }
 
@@ -339,6 +367,18 @@ export class KittComponent implements OnInit {
 
         this.toogle("showOpenOrders");
       });
+
+    } else if (this.InputUserOpenOrders.exchange === "bittrex") {
+      let data = { order: "cancel order", id: event.target.id };
+
+      this.bittrex.bittrex(data).subscribe(result => {
+        this.tickerOpenOrders = this.tickerOpenOrders.filter(obj => obj.orderNumber !== data.id);
+        let say = "order was cancel";
+        this.kitt.textToSpeech = say;
+        this.checkKitt(say);
+
+        this.toogle("showOpenOrders");
+      })
 
     }
 
@@ -452,7 +492,6 @@ export class KittComponent implements OnInit {
           else if (result[key] > 1) {
             result[key] = parseFloat(result[key]).toFixed(2);
           }
-
         }
 
         this.exchangeBalance = result;
@@ -460,10 +499,15 @@ export class KittComponent implements OnInit {
 
       });
     } else if (data.input === "bittrex") {
-      
-      this.bittrex.bittrex(data).subscribe(result => { 
-        console.log(result);
-        this.toogle(" ");
+
+      this.bittrex.bittrex(data).subscribe(result => {
+
+        result.result.forEach(element => {
+          if (element.Balance > 0) {
+            this.exchangeBalance[element.Currency] = element.Balance;
+          }
+        });
+        this.toogle("showBalance");
       });
 
     }

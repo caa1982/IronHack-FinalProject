@@ -120,7 +120,7 @@ a {
 
 .portfolioContainer{
   font-size: 20px;
-  width: 100vw;
+  width: 100%;
   margin-top: 2%;
   display: -webkit-box;
   display: -moz-box;

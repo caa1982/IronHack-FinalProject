@@ -22,9 +22,23 @@ router.post('/', (req, res) => {
             });
 
         } else if (req.body.input === "bittrex") {
-            console.log(user.BittrexKeyAPI);
+            
             bittrex.getbalances(function (data) {
-                console.log(data);
+                res.json(data);
+            });
+
+        } else if (req.body.order === "open orders"){
+            const ticker = "BTC-" + req.body.ticker.toUpperCase();
+
+            bittrex.getopenorders(ticker, function(data){
+                res.json(data);
+            });
+
+        } else if (req.body.order === 'cancel order'){
+    
+             bittrex.cancel({ Uuid : req.body.id }, function (data) {
+                 console.log(data);
+                res.json(data);
             });
 
         }
