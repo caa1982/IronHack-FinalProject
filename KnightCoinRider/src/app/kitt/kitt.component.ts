@@ -302,9 +302,9 @@ export class KittComponent implements OnInit {
             rate: element.Limit,
             date: element.Opened
           };
-          
+
           this.tickerOpenOrders.push(BittrexOpenOrders);
-      
+
         });
 
       });
@@ -385,7 +385,7 @@ export class KittComponent implements OnInit {
   }
 
   // send a sell or buy order to poloniex
-  poloniex() {
+  tradePoloniex() {
     this.toogle("loading");
 
     this.polo.polo(this.trade).subscribe(result => {
@@ -422,7 +422,7 @@ export class KittComponent implements OnInit {
       else {
         this.toogle(" ");
 
-        let say = "your order was sent to the exchange please check 'open orders' to see details or cancel it"
+        let say = "your order was sent to the exchange please check 'open orders' to see details or cancel it";
         this.kitt.textToSpeech = say;
         this.checkKitt(say)
 
@@ -430,6 +430,32 @@ export class KittComponent implements OnInit {
     })
   }
 
+  // send buy or sell order to bittrex
+  tradeBittrex() {
+    this.toogle("loading");
+
+    this.bittrex.bittrex(this.trade).subscribe(result => {
+      if(result.success === false){
+        let say = result.message.replace(/_/g, " ");
+        this.kitt.textToSpeech = say;
+        this.checkKitt(say)
+        this.toogle(" ");
+      }
+        console.log(result);
+    });
+
+  }
+
+  //sumbmit trade from consfirmation
+  submitTrade() {
+    if (this.trade.exchange === "poloniex") {
+      this.tradePoloniex();
+    } else if (this.trade.exchange === "bittrex") {
+      this.tradeBittrex();
+    }
+  }
+
+  // check user input for trading and show trading confirmation to html
   trading(userInput) {
     let input = userInput.value.toLowerCase().split(' ');
 

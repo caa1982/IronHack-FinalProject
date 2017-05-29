@@ -41,7 +41,23 @@ router.post('/', (req, res) => {
                 res.json(data);
             });
 
-        }
+        } else if (req.body.order === 'buy'){
+            const ticker = "BTC-" + req.body.ticker.toUpperCase();
+    
+             bittrex.buylimit({ market : ticker, quantity : req.body.qty, rate : req.body.price }, 
+             function (data) {
+                res.json(data);
+            });
+
+        } else if (req.body.order === 'sell'){
+            const ticker = "BTC-" + req.body.ticker.toUpperCase();
+    
+             bittrex.buylimit({ market : ticker, quantity : req.body.qty, rate : req.body.price }, 
+             function (data) {
+                res.json(data);
+            });
+
+        } 
 
     });
 
