@@ -18,6 +18,7 @@ import { SettingsService } from './settings.service';
 import { ExchangesService } from './exchanges.service';
 import { CoinmarketcapService } from './coinmarketcap.service';
 import { PoloniexService } from './poloniex.service';
+import { BittrexService } from './bittrex.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'landing-page', pathMatch: 'full' },
@@ -53,6 +54,7 @@ const routes: Routes = [
     ExchangesService, 
     CoinmarketcapService,
     PoloniexService,
+    BittrexService
     ],
   bootstrap: [AppComponent]
 })

@@ -9,8 +9,6 @@ const userSchema = new Schema({
   PoloniexSecretAPI: String,
   BittrexKeyAPI: String,
   BittrexSecretAPI: String,
-  KrakenKeyAPI: String,
-  KrakenSecretAPI: String
 }, {
     timestamps: {
       createdAt: "created_at",

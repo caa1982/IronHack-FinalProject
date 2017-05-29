@@ -10,6 +10,18 @@ const bittrex = require('node.bittrex.api');
 router.post('/', (req, res) => {
 
     Users.findById(req.user._id, function (err, user) {
+        bittrex.options({
+            'apikey': user.BittrexKeyAPI,
+            'apisecret': user.BittrexSecretAPI
+        });
+
+        if (req.body.order === "coins") {
+
+            bittrex.getmarketsummaries(function (data) {
+                res.json(data);
+            });
+
+        }
 
     });
 

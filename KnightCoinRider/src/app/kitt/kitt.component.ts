@@ -4,6 +4,7 @@ import { WikipediaService } from '../wikipedia.service';
 import { ExchangesService } from '../exchanges.service';
 import { CoinmarketcapService } from '../coinmarketcap.service';
 import { PoloniexService } from '../poloniex.service';
+import { BittrexService } from '../bittrex.service';
 import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
@@ -28,10 +29,10 @@ export class KittComponent implements OnInit {
   showCoins: boolean;
   loading: boolean;
   tickerOpenOrders = [];
-  coin: object;
-  exchangeCoins: object;
-  exchangeBalance: object;
-  orderBook: object;
+  coin: Object = {};
+  exchangeCoins: Object = {};
+  exchangeBalance: Object = {};
+  orderBook: Object = {};
   executionOrder = {
     order: '',
     amount: '',
@@ -57,7 +58,8 @@ export class KittComponent implements OnInit {
     private exchanges: ExchangesService,
     private coinmarketcap: CoinmarketcapService,
     private polo: PoloniexService,
-    private router: Router
+    private router: Router,
+    private bittrex: BittrexService
   ) { }
 
   ngOnInit() {
@@ -184,14 +186,49 @@ export class KittComponent implements OnInit {
         for (var key in result) {
           if (result[key].delisted === 1) {
             delete result[key];
-          } else{
+          } else {
             let name = result[key].name.split(' ');
             result[key].name = name[0].toLowerCase();
           }
         }
         this.exchangeCoins = result;
+        console.log(this.exchangeCoins);
         this.toogle("showCoins");
       });
+    } else if (input[1] === "bittrex") {
+      let coins = [];
+
+      this.coinmarketcap.coinmarketcap().subscribe(coinMKcap => {
+        coins = coinMKcap;
+      });
+
+      this.bittrex.bittrex(data).subscribe(result => {
+
+        result.result.forEach(element => {
+          coins.forEach(el => {
+            if (element.MarketName.replace('BTC', '').replace('-', '') === el.symbol) {
+                      console.log(this.exchangeCoins)
+
+              console.log("here", el.name)
+  
+              this.exchangeCoins[el.name] = {name: el.id};
+              console.log(this.exchangeCoins)
+
+            }
+          })
+        });
+      });
+
+
+      this.toogle("showCoins");
+
+    } else {
+
+      let say = "Please check the help page, your input was incorrect!";
+      this.kitt.textToSpeech = say;
+      this.checkKitt(say);
+      this.toogle(" ");
+
     };
 
   }
