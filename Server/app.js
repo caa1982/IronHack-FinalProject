@@ -11,6 +11,7 @@ const settings      = require('./routes/settings');
 const cors          = require('cors');
 const coinmarketcap = require('./helper/coinmarketcap');
 const polo          = require('./routes/poloniex');
+const bittrex          = require('./routes/bittrex');
 
 
 require('./config/database');
@@ -34,6 +35,7 @@ app.use('/', auth);
 app.use('/settings', passport.authenticate('jwt', { session: false }), settings);
 app.use('/coinmarketcap', passport.authenticate('jwt', { session: false }), coinmarket);
 app.use('/poloniex', passport.authenticate('jwt', { session: false }), polo);
+app.use('/bittrex', passport.authenticate('jwt', { session: false }), bittrex);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

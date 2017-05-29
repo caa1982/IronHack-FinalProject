@@ -59,6 +59,11 @@ router.post('/', (req, res) => {
                 res.json(data);
             });
 
+        } else if (req.body.order === "coins") {
+
+            poloniex.returnCurrencies(function (err, data) {
+                res.json(data);
+            });
         }
 
     });

@@ -1,4 +1,4 @@
-<div class="container" (click)="killKitt()">
+<div class="container kittContainer" (click)="killKitt()">
   <div class="inner">
     <span [ngClass]="{ kittCSS: kitt.kittCSS }"></span>
     <img src="/assets/kitt.png" class="kittScreen">
@@ -7,23 +7,24 @@
 </div>
 <p>{{kitt.textToSpeech}}</p>
 <div id="inputBox" class="input-group margin-bottom-sm text-center">
-  <input class="form-control" list="orders" type="text" placeholder="KITT intsructions" [(ngModel)]="searchValue" (keyup.enter)="kittInput(userInput)" #userInput>
+  <input class="form-control" list="orders" type="text" placeholder="KITT intsructions" [(ngModel)]="searchValue" (keyup.enter)="kittInput(userInput)"
+    #userInput>
   <datalist id="orders">
     <option value="How to trade crypto?">
-    <option value="help">
-    <option value="check">
-    <option value="buy">
-    <option value="sell">
-    <option value="order book">
-    <option value="graph">
-    <option value="portfolio poloniex">
-    <option value="portfolio bittrex">
-    <option value="portfolio BTC-e">
-    <option value="open orders">
-    <option value="trade history">
-    <option value="coins">
-    <option value="exchanges">
-    <option value="wiki">
+      <option value="help">
+        <option value="check">
+          <option value="buy">
+            <option value="sell">
+              <option value="order book">
+                <option value="graph">
+                  <option value="portfolio poloniex">
+                    <option value="portfolio bittrex">
+                      <option value="open orders">
+                        <option value="trade history">
+                          <option value="coins poloniex">
+                            <option value="coins bittrex">
+                              <option value="exchanges">
+                                <option value="wiki">
   </datalist>
   <button type="button" class="btn btn-outline-success" (click)="kittInput(userInput)">Enter</button>
 </div>
@@ -91,6 +92,63 @@
     </div>
   </div>
 </div>
+
+<div class="container" *ngIf="showCoins">
+  <div class="row">
+    <div class="col-md-3 col-sm-1" *ngFor="let key of keysGetter(exchangeCoins)">
+      <p class="smallText"><img src="https://files.coinmarketcap.com/static/img/coins/32x32/{{exchangeCoins[key].name}}.png" 
+      onError="this.onerror=null;this.src='https://files.coinmarketcap.com/static/img/coins/32x32/bitcoin.png';"
+        /> {{exchangeCoins[key].name}}</p>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="showOrderBook">
+  <div class="orderBook container">
+
+    <div class="row">
+
+      <div class="col-6">
+        <div class="row">
+          <div class="titleLarge col">ASK</div>
+        </div>
+        <div class="row">
+          <div class="col-6">Price</div>
+          <div class="col-6">Quantity</div>
+        </div>
+        <div class="row" *ngFor="let orders of orderBook.asks">
+          <div class="col-6">
+            {{orders[0]}}
+          </div>
+          <div class="col-6">
+            {{orders[1]}}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="row">
+          <div class="titleLarge col">BID</div>
+        </div>
+        <div class="row">
+          <div class="col-6">Price</div>
+          <div class="col-6">Quantity</div>
+        </div>
+        <div class="row" *ngFor="let orders of orderBook.bids">
+          <div class="col-6">
+            {{orders[0]}}
+          </div>
+          <div class="col-6">
+            {{orders[1]}}
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
 
 <div *ngIf="loading">
   <div id='kitt'>

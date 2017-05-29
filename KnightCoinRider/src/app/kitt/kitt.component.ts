@@ -24,10 +24,14 @@ export class KittComponent implements OnInit {
   showBalance: boolean;
   showExecution: boolean;
   showOpenOrders: boolean;
+  showOrderBook: boolean;
+  showCoins: boolean;
   loading: boolean;
   tickerOpenOrders = [];
   coin: object;
+  exchangeCoins: object;
   exchangeBalance: object;
+  orderBook: object;
   executionOrder = {
     order: '',
     amount: '',
@@ -95,7 +99,7 @@ export class KittComponent implements OnInit {
 
     } else if (userInput.value.match("order book")) {
 
-      this.orderBook(userInput);
+      this.oBook(userInput);
       this.searchValue = '';
 
 
@@ -105,7 +109,8 @@ export class KittComponent implements OnInit {
 
     } else if (userInput.value.match("coins")) {
 
-
+      this.coins(userInput);
+      this.searchValue = '';
 
     } else if (userInput.value.match("graph")) {
 
@@ -138,6 +143,8 @@ export class KittComponent implements OnInit {
     this.showExecution = false;
     this.loading = false;
     this.showOpenOrders = false;
+    this.showOrderBook = false;
+    this.showCoins = false;
 
     this[key] = (this[key] == true ? false : true)
   }
@@ -164,8 +171,33 @@ export class KittComponent implements OnInit {
     }
   }
 
+  // return list of coins for selected excahnge
+  coins(userInput) {
+    this.toogle("loading");
+
+    const input = userInput.value.split(' ');
+    const data = { order: "coins" };
+
+    if (input[1] === "poloniex") {
+      this.polo.polo(data).subscribe(result => {
+
+        for (var key in result) {
+          if (result[key].delisted === 1) {
+            delete result[key];
+          } else{
+            let name = result[key].name.split(' ');
+            result[key].name = name[0].toLowerCase();
+          }
+        }
+        this.exchangeCoins = result;
+        this.toogle("showCoins");
+      });
+    };
+
+  }
+
   // return order book for selected crypto
-  orderBook(userInput) {
+  oBook(userInput) {
     this.toogle("loading");
 
     const input = userInput.value.split(' ');
@@ -174,8 +206,11 @@ export class KittComponent implements OnInit {
     if (input[3] === "poloniex") {
 
       this.polo.polo(data).subscribe(result => {
-        console.log(result);
-        this.toogle(" ");
+
+
+        this.orderBook = result;
+        this.toogle("showOrderBook");
+
       });
 
     } else {
@@ -201,7 +236,7 @@ export class KittComponent implements OnInit {
     if (this.InputUserOpenOrders.exchange === "poloniex") {
 
       this.polo.polo(this.InputUserOpenOrders).subscribe(result => {
-
+        console.log(result)
         if (result.length) {
           this.tickerOpenOrders = result;
           this.toogle("showOpenOrders");
