@@ -207,11 +207,11 @@ export class KittComponent implements OnInit {
         result.result.forEach(element => {
           coins.forEach(el => {
             if (element.MarketName.replace('BTC', '').replace('-', '') === el.symbol) {
-                      console.log(this.exchangeCoins)
+              console.log(this.exchangeCoins)
 
               console.log("here", el.name)
-  
-              this.exchangeCoins[el.name] = {name: el.id};
+
+              this.exchangeCoins[el.name] = { name: el.id };
               console.log(this.exchangeCoins)
 
             }
@@ -459,6 +459,13 @@ export class KittComponent implements OnInit {
         this.toogle("showBalance");
 
       });
+    } else if (data.input === "bittrex") {
+      
+      this.bittrex.bittrex(data).subscribe(result => { 
+        console.log(result);
+        this.toogle(" ");
+      });
+
     }
   }
 

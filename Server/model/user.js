@@ -8,7 +8,7 @@ const userSchema = new Schema({
   PoloniexKeyAPI: String,
   PoloniexSecretAPI: String,
   BittrexKeyAPI: String,
-  BittrexSecretAPI: String,
+  BittrexSecretAPI: String
 }, {
     timestamps: {
       createdAt: "created_at",

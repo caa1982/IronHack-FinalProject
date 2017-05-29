@@ -12,14 +12,7 @@ import { Router } from '@angular/router';
 })
 export class SettingsComponent implements OnInit {
 
-  userSetting = {
-    PoloniexKey: "",
-    PoloniexSecret: "",
-    BittrexKey: "",
-    BittrexSecret: "",
-    KrakenKey: "",
-    KrakenSecret: ""
-  };
+  userSetting: Object = {};
 
   constructor(
     private kitt: KittAIService,
@@ -28,21 +21,20 @@ export class SettingsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    let user = JSON.parse(localStorage.getItem("user"))
+    this.userSetting = user;
+
     this.kitt.start(" ");
   }
 
   submit() {
     console.log(this.userSetting)
     this.settings.settings(this.userSetting).subscribe(result => {
-				            if (result === true) {
-			                // login successful
-			                console.log(result)
-			         			} else {
-			                // login failed
-			                console.log("error")
-				            }
-				        });
-    this.router.navigate(['/kitt']);
+      this.userSetting = result.user;
+      let newUser = JSON.stringify(result.user)
+      localStorage.setItem("user", newUser);
+    });
+this.router.navigate(['/kitt']);
   }
 
 }

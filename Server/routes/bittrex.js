@@ -8,7 +8,7 @@ const bittrex = require('node.bittrex.api');
 
 /* EDIT/ADD Settings. */
 router.post('/', (req, res) => {
-
+    
     Users.findById(req.user._id, function (err, user) {
         bittrex.options({
             'apikey': user.BittrexKeyAPI,
@@ -19,6 +19,12 @@ router.post('/', (req, res) => {
 
             bittrex.getmarketsummaries(function (data) {
                 res.json(data);
+            });
+
+        } else if (req.body.input === "bittrex") {
+            console.log(user.BittrexKeyAPI);
+            bittrex.getbalances(function (data) {
+                console.log(data);
             });
 
         }
