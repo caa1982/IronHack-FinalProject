@@ -64,8 +64,7 @@ router.post('/', (req, res) => {
             poloniex.returnCurrencies(function (err, data) {
                 res.json(data);
             });
-        }
-
+        } 
     });
 
 });

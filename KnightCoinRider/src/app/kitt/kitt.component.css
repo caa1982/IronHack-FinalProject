@@ -155,6 +155,11 @@ a {
   font-size: 25px;
 }
 
+.exchanges{
+  width: 100px !important;
+  height: 100px !important;
+}
+
 /* kitt loading*/
 
 #kitt {
