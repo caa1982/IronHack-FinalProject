@@ -115,11 +115,11 @@
           <div class="col-6">Price</div>
           <div class="col-6">Quantity</div>
         </div>
-        <div class="row" *ngFor="let orders of orderBook.asks">
-          <div class="col-6">
+        <div class="row" *ngFor="let orders of orderBook.asks; let i=index">
+          <div *ngIf="i<11" class="col-6">
             {{orders[0]}}
           </div>
-          <div class="col-6">
+          <div *ngIf="i<11" class="col-6">
             {{orders[1]}}
           </div>
         </div>
@@ -133,11 +133,11 @@
           <div class="col-6">Price</div>
           <div class="col-6">Quantity</div>
         </div>
-        <div class="row" *ngFor="let orders of orderBook.bids">
-          <div class="col-6">
+        <div class="row" *ngFor="let orders of orderBook.bids; let i=index">
+          <div *ngIf="i<11" class="col-6">
             {{orders[0]}}
           </div>
-          <div class="col-6">
+          <div *ngIf="i<11" class="col-6">
             {{orders[1]}}
           </div>
         </div>

@@ -8,7 +8,7 @@ const bittrex = require('node.bittrex.api');
 
 /* EDIT/ADD Settings. */
 router.post('/', (req, res) => {
-    
+
     Users.findById(req.user._id, function (err, user) {
         bittrex.options({
             'apikey': user.BittrexKeyAPI,
@@ -22,42 +22,54 @@ router.post('/', (req, res) => {
             });
 
         } else if (req.body.input === "bittrex") {
-            
+
             bittrex.getbalances(function (data) {
                 res.json(data);
             });
 
-        } else if (req.body.order === "open orders"){
+        } else if (req.body.order === "open orders") {
             const ticker = "BTC-" + req.body.ticker.toUpperCase();
 
-            bittrex.getopenorders(ticker, function(data){
+            bittrex.getopenorders(ticker, function (data) {
                 res.json(data);
             });
 
-        } else if (req.body.order === 'cancel order'){
-    
-             bittrex.cancel({ Uuid : req.body.id }, function (data) {
-                 console.log(data);
+        } else if (req.body.order === 'cancel order') {
+
+            bittrex.cancel({ Uuid: req.body.id }, function (data) {
+                console.log(data);
                 res.json(data);
             });
 
-        } else if (req.body.order === 'buy'){
+        } else if (req.body.order === 'buy') {
             const ticker = "BTC-" + req.body.ticker.toUpperCase();
-    
-             bittrex.buylimit({ market : ticker, quantity : req.body.qty, rate : req.body.price }, 
-             function (data) {
-                res.json(data);
-            });
 
-        } else if (req.body.order === 'sell'){
+            bittrex.buylimit({ market: ticker, quantity: req.body.qty, rate: req.body.price },
+                function (data) {
+                    res.json(data);
+                });
+
+        } else if (req.body.order === 'sell') {
             const ticker = "BTC-" + req.body.ticker.toUpperCase();
-    
-             bittrex.buylimit({ market : ticker, quantity : req.body.qty, rate : req.body.price }, 
-             function (data) {
+
+            bittrex.buylimit({ market: ticker, quantity: req.body.qty, rate: req.body.price },
+                function (data) {
+                    res.json(data);
+                });
+
+        } else if (req.body.order === 'trade history') {
+            const ticker = "BTC-" + req.body.ticker.toUpperCase();
+
+            bittrex.getorderhistory({ market: ticker }, function (data) {
                 res.json(data);
             });
+        } else if (req.body.order === 'order book') {
+            const ticker = "BTC-" + req.body.ticker.toUpperCase();
 
-        } 
+            bittrex.getorderbook({ market: ticker, type: "both", depth: "10" }, function (data) {
+                res.json(data);
+            });
+        }
 
     });
 

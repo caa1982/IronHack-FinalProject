@@ -241,11 +241,30 @@ export class KittComponent implements OnInit {
     const data = { order: "order book", ticker: input[2] }
 
     if (input[3] === "poloniex") {
-
+      console.log("hi22")
       this.polo.polo(data).subscribe(result => {
 
-
+        console.log(result);
         this.orderBook = result;
+        this.toogle("showOrderBook");
+
+      });
+
+    } if (input[3] === "bittrex") {
+      console.log("hi")
+      this.bittrex.bittrex(data).subscribe(result => {
+
+        for (var key in result.result.sell){
+          if(Number(key) < 11){
+            result.result.sell[key] = Object.keys(result.result.sell[key]).map(function (key2, index) {return result.result.sell[key][key2]; }).reverse();
+            result.result.buy[key] = Object.keys(result.result.buy[key]).map(function (key2, index) { return result.result.buy[key][key2]; }).reverse();
+          }
+        };
+        
+        this.orderBook["asks"] = result.result.sell;
+        this.orderBook["bids"] = result.result.buy;
+        console.log(this.orderBook)
+        
         this.toogle("showOrderBook");
 
       });
@@ -346,6 +365,7 @@ export class KittComponent implements OnInit {
     } else if (input[3] === "bittrex") {
       this.bittrex.bittrex(data).subscribe(result => {
         console.log(result);
+        this.toogle(" ");
       });
     }
   }
@@ -435,13 +455,13 @@ export class KittComponent implements OnInit {
     this.toogle("loading");
 
     this.bittrex.bittrex(this.trade).subscribe(result => {
-      if(result.success === false){
+      if (result.success === false) {
         let say = result.message.replace(/_/g, " ");
         this.kitt.textToSpeech = say;
         this.checkKitt(say)
         this.toogle(" ");
       }
-        console.log(result);
+      console.log(result);
     });
 
   }
