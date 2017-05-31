@@ -1,0 +1,28 @@
+.jumbotron{
+    width: 70%;
+    margin: 0 auto;
+}
+
+.container{
+    margin: 2%;
+}
+
+span{
+    color: red;
+    font-size: 25px !important;
+}
+
+h3{
+    color: red;
+}
+
+p{
+    color: black;
+}
+
+hr{
+    width: 75%;
+    border: none;
+    height: 3px;
+    background-color: black;
+}

@@ -15,7 +15,6 @@ import { HelpComponent } from './help/help.component';
 import { WikipediaService } from './wikipedia.service';
 import { SessionService } from './session.service';
 import { SettingsService } from './settings.service';
-import { ExchangesService } from './exchanges.service';
 import { CoinmarketcapService } from './coinmarketcap.service';
 import { PoloniexService } from './poloniex.service';
 import { BittrexService } from './bittrex.service';
@@ -51,7 +50,6 @@ const routes: Routes = [
     WikipediaService, 
     SessionService, 
     SettingsService, 
-    ExchangesService, 
     CoinmarketcapService,
     PoloniexService,
     BittrexService
