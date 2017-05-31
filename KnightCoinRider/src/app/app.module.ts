@@ -52,7 +52,7 @@ const routes: Routes = [
     SettingsService, 
     CoinmarketcapService,
     PoloniexService,
-    BittrexService
+    BittrexService,
     ],
   bootstrap: [AppComponent]
 })

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { KittAIService } from '../kitt-ai.service';
-import { SettingsService } from "../settings.service";
-import { SessionService } from "../session.service";
+import { SettingsService } from '../settings.service';
+import { SessionService } from '../session.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -21,10 +21,10 @@ export class SettingsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    let user = JSON.parse(localStorage.getItem("user"))
+    let user = JSON.parse(localStorage.getItem('user'))
     this.userSetting = user;
 
-    this.kitt.start(" ");
+    this.kitt.start(' ');
   }
 
   submit() {
@@ -32,7 +32,7 @@ export class SettingsComponent implements OnInit {
     this.settings.settings(this.userSetting).subscribe(result => {
       this.userSetting = result.user;
       let newUser = JSON.stringify(result.user)
-      localStorage.setItem("user", newUser);
+      localStorage.setItem('user', newUser);
     });
 this.router.navigate(['/kitt']);
   }

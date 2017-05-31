@@ -60,12 +60,12 @@ p{
 }
 
 input{
-  font-family: "KnightRider";
+  font-family: 'KnightRider';
 }
 
 .btn{
   margin-left: 1%;
-  font-family: "KnightRider";
+  font-family: 'KnightRider';
   cursor: pointer;
 }
 
@@ -94,6 +94,10 @@ input{
 
 a {
   text-decoration: none;
+}
+
+.larger{
+  font-size: 20px;
 }
 
 .kittLed{

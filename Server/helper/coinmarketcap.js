@@ -1,11 +1,11 @@
-const Coin = require("../model/coin");
+const Coin = require('../model/coin');
 const request = require('request');
 
 module.exports =
     function () {
         setInterval(() => {
             request.get({
-                url: "https://api.coinmarketcap.com/v1/ticker/",
+                url: 'https://api.coinmarketcap.com/v1/ticker/',
                 json: true,
                 headers: { 'User-Agent': 'request' }
             }, (err, data) => {

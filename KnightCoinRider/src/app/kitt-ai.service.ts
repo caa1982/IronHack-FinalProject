@@ -85,11 +85,19 @@ export class KittAIService {
       description: 'logout',
       indexes: ['logout', 'exit'],
       action: (i) => {
-        this.kittSay("See you soon");
+        this.kittSay('See you soon');
         this.session.logout();;
       }
     });
 
+    this.artyom.addCommands({
+      description: 'how to trade crypto',
+      indexes: ['how to', 'how'],
+      action: (i) => {
+        
+      }
+    });
+    
   }
 
   // route the user to a page
@@ -107,35 +115,12 @@ export class KittAIService {
     this.settings();
 
     this.artyom.addCommands({
-      description: 'Test command',
+      description: 'say hello',
       indexes: ['hello', 'hi'],
       action: (i) => {
-        this.kittSay('Hello! How are you doing?');
-      }
-    });
-
-    this.artyom.addCommands({
-      description: 'turn Kitt off',
-      indexes: ['stop', 'stuff'],
-      action: (i) => {
-        this.KittType('You killed KITT!!');
-      }
-    });
-
-    this.artyom.addCommands({
-      description: 'buy',
-      indexes: ['buy', 'by', 'bye'],
-      action: (i) => {
-        this.kittSay('Sure, lets buy some coins. Which exchange would you like to buy from? Click on an exchange below');
-      }
-    });
-
-
-    this.artyom.addCommands({
-      description: 'sell',
-      indexes: ['sell', 'cell', 'so'],
-      action: (i) => {
-        this.kittSay('Sure, lets sell some coins. Which exchange would you like to sell from? Click on an exchange below');
+        let say = 'Hello sir! How are you doing today? Ready to do some trading';
+        this.kittSay(say);
+        this.textToSpeech = say;
       }
     });
 

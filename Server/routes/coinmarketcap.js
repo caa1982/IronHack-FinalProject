@@ -9,7 +9,7 @@ const Coin = require('../model/coin');
 router.get('/', (req, res) => {
     Coin.find({}, function (err, coin) {
         if (err) {
-            res.status(500).json({ message: "DB error" });
+            res.status(500).json({ message: 'DB error' });
         } else {
             res.status(200).json(coin);
         }

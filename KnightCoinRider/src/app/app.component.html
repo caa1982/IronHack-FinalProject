@@ -1,27 +1,27 @@
-<nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar7">
-        <span class="navbar-toggler-icon"></span>
+<nav class='navbar navbar-toggleable-sm navbar-inverse bg-inverse'>
+    <button class='navbar-toggler navbar-toggler-right' type='button' data-toggle='collapse' data-target='#navbar7'>
+        <span class='navbar-toggler-icon'></span>
     </button>
-    <a href="/" class="navbar-brand">Knight Coin Ridder</a>
-    <div class="navbar-collapse collapse justify-content-stretch" id="navbar7">
-        <ul class="navbar-nav ml-auto">
-            <li *ngIf="!this.session.isAuth" class="nav-item">
-                <a class="nav-link" [routerLink]="['login']">LogIn</a>
+    <a href='/' class='navbar-brand'>Knight Coin Ridder</a>
+    <div class='navbar-collapse collapse justify-content-stretch' id='navbar7'>
+        <ul class='navbar-nav ml-auto'>
+            <li *ngIf='!this.session.isAuth' class='nav-item'>
+                <a class='nav-link' [routerLink]='["login"]'>LogIn</a>
             </li>
-            <li *ngIf="!this.session.isAuth" class="nav-item">
-                <a class="nav-link" [routerLink]="['signup']">SignUp</a>
+            <li *ngIf='!this.session.isAuth' class='nav-item'>
+                <a class='nav-link' [routerLink]='["signup"]'>SignUp</a>
             </li>
-            <li *ngIf="this.session.isAuth" class="nav-item">
-                <a class="nav-link" [routerLink]="['kitt']">KITT</a>
+            <li *ngIf='this.session.isAuth' class='nav-item'>
+                <a class='nav-link' [routerLink]='["kitt"]'>KITT</a>
             </li>
-            <li *ngIf="this.session.isAuth" class="nav-item">
-                <a class="nav-link" [routerLink]="['help']">Help</a>
+            <li *ngIf='this.session.isAuth' class='nav-item'>
+                <a class='nav-link' [routerLink]='["help"]'>Help</a>
             </li>
-            <li *ngIf="this.session.isAuth" class="nav-item">
-                <a class="nav-link" [routerLink]="['settings']">Settings</a>
+            <li *ngIf='this.session.isAuth' class='nav-item'>
+                <a class='nav-link' [routerLink]='["settings"]'>Settings</a>
             </li>
-            <li *ngIf="this.session.isAuth"  class="nav-item">
-                <a class="nav-link" (click)="logout()">LogOut</a>
+            <li *ngIf='this.session.isAuth'  class='nav-item'>
+                <a class='nav-link' (click)='logout()'>LogOut</a>
             </li>
         </ul>
     </div>

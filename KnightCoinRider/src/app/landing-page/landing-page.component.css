@@ -1,11 +1,11 @@
 .title{
     font-size: 5vw;
-    font-family: "KnightRider";
+    font-family: 'KnightRider';
     cursor: pointer;
 }
 
 .subTitle{
-  font-family: "KnightRider";
+  font-family: 'KnightRider';
   margin-top: 1.5%;
   color: red;
   font-size: 18px;

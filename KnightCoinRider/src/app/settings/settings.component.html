@@ -1,32 +1,32 @@
 <form class='container animated zoomInUp'>
   <h1>Settings</h1>
-  <div class="row form-group">
-    <div class="col">
-      <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user-secret"></i></div>
-        <input class="form-control" name="PoloniexKey" type="text" [(ngModel)]="userSetting.PoloniexKeyAPI"
+  <div class='row form-group'>
+    <div class='col'>
+      <div class='input-group mb-2 mr-sm-2 mb-sm-0'>
+        <div class='input-group-addon' style='width: 2.6rem'><i class='fa fa-user-secret'></i></div>
+        <input class='form-control' name='PoloniexKey' type='text' [(ngModel)]='userSetting.PoloniexKeyAPI'
         />
       </div>
-      <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user-secret"></i></div>
-        <input class="form-control" placeholder="Poloniex API Secret" name="PoloniexSecret" type="text" [(ngModel)]="userSetting.PoloniexSecretAPI"
-        />
-      </div>
-    </div>
-  </div>
-  <div class="row form-group">
-    <div class="col">
-      <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user-secret"></i></div>
-        <input class="form-control" placeholder="Bittrex API Key" name="BittrexKey" type="text" [(ngModel)]="userSetting.BittrexKeyAPI"
-        />
-      </div>
-      <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user-secret"></i></div>
-        <input class="form-control" placeholder="Bittrex API Secret" name="BittrexSecret" type="text" [(ngModel)]="userSetting.BittrexSecretAPI"
+      <div class='input-group mb-2 mr-sm-2 mb-sm-0'>
+        <div class='input-group-addon' style='width: 2.6rem'><i class='fa fa-user-secret'></i></div>
+        <input class='form-control' placeholder='Poloniex API Secret' name='PoloniexSecret' type='text' [(ngModel)]='userSetting.PoloniexSecretAPI'
         />
       </div>
     </div>
   </div>
-  <button type="button" class="btn btn-outline-success" (click)="submit()">Submit</button>
+  <div class='row form-group'>
+    <div class='col'>
+      <div class='input-group mb-2 mr-sm-2 mb-sm-0'>
+        <div class='input-group-addon' style='width: 2.6rem'><i class='fa fa-user-secret'></i></div>
+        <input class='form-control' placeholder='Bittrex API Key' name='BittrexKey' type='text' [(ngModel)]='userSetting.BittrexKeyAPI'
+        />
+      </div>
+      <div class='input-group mb-2 mr-sm-2 mb-sm-0'>
+        <div class='input-group-addon' style='width: 2.6rem'><i class='fa fa-user-secret'></i></div>
+        <input class='form-control' placeholder='Bittrex API Secret' name='BittrexSecret' type='text' [(ngModel)]='userSetting.BittrexSecretAPI'
+        />
+      </div>
+    </div>
+  </div>
+  <button type='button' class='btn btn-outline-success' (click)='submit()'>Submit</button>
 </form>

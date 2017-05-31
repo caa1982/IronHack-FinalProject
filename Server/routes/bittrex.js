@@ -15,20 +15,20 @@ router.post('/', (req, res) => {
             'apisecret': user.BittrexSecretAPI
         });
 
-        if (req.body.order === "coins") {
+        if (req.body.order === 'coins') {
 
             bittrex.getmarketsummaries(function (data) {
                 res.json(data);
             });
 
-        } else if (req.body.input === "bittrex") {
+        } else if (req.body.input === 'bittrex') {
 
             bittrex.getbalances(function (data) {
                 res.json(data);
             });
 
-        } else if (req.body.order === "open orders") {
-            const ticker = "BTC-" + req.body.ticker.toUpperCase();
+        } else if (req.body.order === 'open orders') {
+            const ticker = 'BTC-' + req.body.ticker.toUpperCase();
 
             bittrex.getopenorders(ticker, function (data) {
                 res.json(data);
@@ -42,7 +42,7 @@ router.post('/', (req, res) => {
             });
 
         } else if (req.body.order === 'buy') {
-            const ticker = "BTC-" + req.body.ticker.toUpperCase();
+            const ticker = 'BTC-' + req.body.ticker.toUpperCase();
 
             bittrex.buylimit({ market: ticker, quantity: req.body.qty, rate: req.body.price },
                 function (data) {
@@ -50,7 +50,7 @@ router.post('/', (req, res) => {
                 });
 
         } else if (req.body.order === 'sell') {
-            const ticker = "BTC-" + req.body.ticker.toUpperCase();
+            const ticker = 'BTC-' + req.body.ticker.toUpperCase();
 
             bittrex.buylimit({ market: ticker, quantity: req.body.qty, rate: req.body.price },
                 function (data) {
@@ -58,15 +58,15 @@ router.post('/', (req, res) => {
                 });
 
         } else if (req.body.order === 'trade history') {
-            const ticker = "BTC-" + req.body.ticker.toUpperCase();
+            const ticker = 'BTC-' + req.body.ticker.toUpperCase();
 
             bittrex.getorderhistory({ market: ticker }, function (data) {
                 res.json(data);
             });
         } else if (req.body.order === 'order book') {
-            const ticker = "BTC-" + req.body.ticker.toUpperCase();
+            const ticker = 'BTC-' + req.body.ticker.toUpperCase();
 
-            bittrex.getorderbook({ market: ticker, type: "both", depth: "10" }, function (data) {
+            bittrex.getorderbook({ market: ticker, type: 'both', depth: '10' }, function (data) {
                 res.json(data);
             });
         }

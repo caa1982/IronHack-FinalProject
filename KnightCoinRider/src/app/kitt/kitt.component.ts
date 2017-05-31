@@ -13,16 +13,16 @@ import { Router, NavigationEnd } from '@angular/router';
   providers: [KittAIService, WikipediaService],
 })
 export class KittComponent implements OnInit {
-  color = "green";
+  color = 'green';
   searchValue: string = null;
   keysGetter = Object.keys;
   wikiTitle: string;
   wikiArticle: string;
   showOrder: boolean;
   showWiki: boolean;
-  showExchanges: boolean;
   showTicker: boolean;
   showBalance: boolean;
+  showHowCryptoWork: boolean;
   showExecution: boolean;
   showOpenOrders: boolean;
   showOrderBook: boolean;
@@ -62,71 +62,66 @@ export class KittComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.kitt.start("Welcome, say Help or type help below to see what I can do...");
+    this.kitt.start('Welcome, say Help or type help below to see what I can do...');
   }
 
   // look for User Input on the Kitt input box 
   kittInput(userInput) {
 
-    if (userInput.value.match("wiki")) {
+    if (userInput.value.match('wiki')) {
 
       this.wiki(userInput);
       this.searchValue = '';
 
-    } else if (userInput.value.match("buy") || userInput.value.match("sell")) {
+    } else if (userInput.value.match('buy') || userInput.value.match('sell')) {
 
       this.trading(userInput);
       this.searchValue = '';
 
-    } else if (userInput.value.match("check")) {
+    } else if (userInput.value.match('check')) {
 
       this.check(userInput);
       this.searchValue = '';
 
-    } else if (userInput.value.match("portfolio")) {
+    } else if (userInput.value.match('portfolio')) {
 
       this.balance(userInput);
       this.searchValue = '';
 
-    } else if (userInput.value.match("open orders")) {
+    } else if (userInput.value.match('open orders')) {
 
       this.openOrders(userInput);
       this.searchValue = '';
 
-    } else if (userInput.value.match("trade history")) {
+    } else if (userInput.value.match('trade history')) {
 
       this.tradeHistory(userInput);
       this.searchValue = '';
 
-    } else if (userInput.value.match("order book")) {
+    } else if (userInput.value.match('order book')) {
 
       this.oBook(userInput);
       this.searchValue = '';
 
 
-    } else if (userInput.value.match("exchanges")) {
-
-      this.listExchanges();
-      this.searchValue = '';
-
-    } else if (userInput.value.match("coins")) {
+    } else if (userInput.value.match('coins')) {
 
       this.coins(userInput);
       this.searchValue = '';
 
-    } else if (userInput.value.match("help")) {
+    } else if (userInput.value.match('help')) {
 
       this.router.navigate(['help/']);
       this.searchValue = '';
 
+    } else if (userInput.value.match('How to trade crypto?')) {
 
-    } else if (userInput.value.match("How to trade crypto?")) {
-
-      console.log("hi")
+      this.toogle('showHowCryptoWork');
+      this.searchValue = '';
 
     } else {
 
-      let say = "Please check the help page, your input is incorrect!";
+      let say = 'Please check the help page, your input is incorrect!';
       this.kitt.textToSpeech = say;
       this.kitt.read(say);
 
@@ -145,46 +140,41 @@ export class KittComponent implements OnInit {
     this.showOpenOrders = false;
     this.showOrderBook = false;
     this.showCoins = false;
-    this.showExchanges = false;
+    this.showHowCryptoWork = false;
 
     this[key] = (this[key] == true ? false : true)
   }
 
   // on/off kitt reply and listen 
   killKitt() {
-    if (this.color == "green") {
+    if (this.color == 'green') {
 
-      this.color = "red";
+      this.color = 'red';
       this.kitt.killKitt();
 
     } else {
 
-      this.color = "green";
-      this.kitt.start("Hi again, your wish is my command!");
+      this.color = 'green';
+      this.kitt.start('Hi again, your wish is my command!');
 
     }
   }
 
   // check kitt led if green kitt speak
   checkKitt(say) {
-    if (this.color == "green") {
+    if (this.color == 'green') {
       this.kitt.read(say);
     }
   }
 
-  // return list of exchanges
-  listExchanges() {
-    this.toogle("showExchanges");
-  }
-
   // return list of coins for selected excahnge
   coins(userInput) {
-    this.toogle("loading");
+    this.toogle('loading');
 
     const input = userInput.value.split(' ');
-    const data = { order: "coins" };
+    const data = { order: 'coins' };
 
-    if (input[1] === "poloniex") {
+    if (input[1] === 'poloniex') {
       this.polo.polo(data).subscribe(result => {
 
         for (var key in result) {
@@ -197,9 +187,9 @@ export class KittComponent implements OnInit {
         }
         this.exchangeCoins = result;
         console.log(this.exchangeCoins);
-        this.toogle("showCoins");
+        this.toogle('showCoins');
       });
-    } else if (input[1] === "bittrex") {
+    } else if (input[1] === 'bittrex') {
       let coins = [];
 
       this.coinmarketcap.coinmarketcap().subscribe(coinMKcap => {
@@ -213,7 +203,7 @@ export class KittComponent implements OnInit {
             if (element.MarketName.replace('BTC', '').replace('-', '') === el.symbol) {
               console.log(this.exchangeCoins)
 
-              console.log("here", el.name)
+              console.log('here', el.name)
 
               this.exchangeCoins[el.name] = { name: el.id };
               console.log(this.exchangeCoins)
@@ -224,14 +214,14 @@ export class KittComponent implements OnInit {
       });
 
 
-      this.toogle("showCoins");
+      this.toogle('showCoins');
 
     } else {
 
-      let say = "Please check the help page, your input was incorrect!";
+      let say = 'Please check the help page, your input was incorrect!';
       this.kitt.textToSpeech = say;
       this.checkKitt(say);
-      this.toogle(" ");
+      this.toogle(' ');
 
     };
 
@@ -239,23 +229,23 @@ export class KittComponent implements OnInit {
 
   // return order book for selected crypto
   oBook(userInput) {
-    this.toogle("loading");
+    this.toogle('loading');
 
     const input = userInput.value.split(' ');
-    const data = { order: "order book", ticker: input[2] }
+    const data = { order: 'order book', ticker: input[2] }
 
-    if (input[3] === "poloniex") {
-      console.log("hi22")
+    if (input[3] === 'poloniex') {
+      console.log('hi22')
       this.polo.polo(data).subscribe(result => {
 
         console.log(result);
         this.orderBook = result;
-        this.toogle("showOrderBook");
+        this.toogle('showOrderBook');
 
       });
 
-    } if (input[3] === "bittrex") {
-      console.log("hi")
+    } if (input[3] === 'bittrex') {
+      console.log('hi')
       this.bittrex.bittrex(data).subscribe(result => {
 
         for (var key in result.result.sell) {
@@ -265,20 +255,20 @@ export class KittComponent implements OnInit {
           }
         };
 
-        this.orderBook["asks"] = result.result.sell;
-        this.orderBook["bids"] = result.result.buy;
+        this.orderBook['asks'] = result.result.sell;
+        this.orderBook['bids'] = result.result.buy;
         console.log(this.orderBook)
 
-        this.toogle("showOrderBook");
+        this.toogle('showOrderBook');
 
       });
 
     } else {
 
-      let say = "Please check the help page, your input was incorrect!";
+      let say = 'Please check the help page, your input was incorrect!';
       this.kitt.textToSpeech = say;
       this.checkKitt(say);
-      this.toogle(" ");
+      this.toogle(' ');
 
     };
 
@@ -286,31 +276,31 @@ export class KittComponent implements OnInit {
 
   // check open orders for selected crypto
   openOrders(userInput) {
-    this.toogle("loading");
+    this.toogle('loading');
 
     const input = userInput.value.split(' ');
 
     this.InputUserOpenOrders.ticker = input[2];
     this.InputUserOpenOrders.exchange = input[3];
 
-    if (this.InputUserOpenOrders.exchange === "poloniex") {
+    if (this.InputUserOpenOrders.exchange === 'poloniex') {
 
       this.polo.polo(this.InputUserOpenOrders).subscribe(result => {
 
         if (result.length) {
           this.tickerOpenOrders = result;
-          this.toogle("showOpenOrders");
+          this.toogle('showOpenOrders');
         }
         else {
-          let say = "you have no open orders in this crypto";
+          let say = 'you have no open orders in this crypto';
           this.kitt.textToSpeech = say;
           this.checkKitt(say);
-          this.toogle(" ");
+          this.toogle(' ');
         }
 
       });
 
-    } else if (this.InputUserOpenOrders.exchange === "bittrex") {
+    } else if (this.InputUserOpenOrders.exchange === 'bittrex') {
 
       this.bittrex.bittrex(this.InputUserOpenOrders).subscribe(result => {
 
@@ -332,14 +322,14 @@ export class KittComponent implements OnInit {
 
       });
 
-      this.toogle("showOpenOrders");
+      this.toogle('showOpenOrders');
 
     } else {
 
-      let say = "Please check the help page, your input was incorrect!";
+      let say = 'Please check the help page, your input was incorrect!';
       this.kitt.textToSpeech = say;
       this.checkKitt(say);
-      this.toogle(" ");
+      this.toogle(' ');
 
     }
 
@@ -347,61 +337,61 @@ export class KittComponent implements OnInit {
 
   // check the user trade history
   tradeHistory(userInput) {
-    this.toogle("loading");
+    this.toogle('loading');
 
     const input = userInput.value.split(' ');
-    const data = { order: "trade history", ticker: input[2] };
+    const data = { order: 'trade history', ticker: input[2] };
 
-    if (input[3] === "poloniex") {
+    if (input[3] === 'poloniex') {
 
       this.polo.polo(data).subscribe(result => {
         if (result.length) {
           console.log(result);
         }
         else {
-          let say = "It seems you did not trade anything on " + data.ticker + " today";
+          let say = 'It seems you did not trade anything on ' + data.ticker + ' today';
           this.kitt.textToSpeech = say;
           this.checkKitt(say);
-          this.toogle(" ");
+          this.toogle(' ');
         }
       });
 
-    } else if (input[3] === "bittrex") {
+    } else if (input[3] === 'bittrex') {
       this.bittrex.bittrex(data).subscribe(result => {
         console.log(result);
-        this.toogle(" ");
+        this.toogle(' ');
       });
     }
   }
 
   // cancel order
   cancel(event) {
-    this.toogle("loading");
+    this.toogle('loading');
 
-    if (this.InputUserOpenOrders.exchange === "poloniex") {
-      let data = { order: "cancel order", id: event.target.id };
+    if (this.InputUserOpenOrders.exchange === 'poloniex') {
+      let data = { order: 'cancel order', id: event.target.id };
 
       this.polo.polo(data).subscribe(result => {
 
         this.tickerOpenOrders = this.tickerOpenOrders.filter(obj => obj.orderNumber !== data.id);
 
-        let say = "order was cancel";
+        let say = 'order was cancel';
         this.kitt.textToSpeech = say;
         this.checkKitt(say);
 
-        this.toogle("showOpenOrders");
+        this.toogle('showOpenOrders');
       });
 
-    } else if (this.InputUserOpenOrders.exchange === "bittrex") {
-      let data = { order: "cancel order", id: event.target.id };
+    } else if (this.InputUserOpenOrders.exchange === 'bittrex') {
+      let data = { order: 'cancel order', id: event.target.id };
 
       this.bittrex.bittrex(data).subscribe(result => {
         this.tickerOpenOrders = this.tickerOpenOrders.filter(obj => obj.orderNumber !== data.id);
-        let say = "order was cancel";
+        let say = 'order was cancel';
         this.kitt.textToSpeech = say;
         this.checkKitt(say);
 
-        this.toogle("showOpenOrders");
+        this.toogle('showOpenOrders');
       })
 
     }
@@ -410,14 +400,14 @@ export class KittComponent implements OnInit {
 
   // send a sell or buy order to poloniex
   tradePoloniex() {
-    this.toogle("loading");
+    this.toogle('loading');
 
     this.polo.polo(this.trade).subscribe(result => {
 
-      if (typeof result.error !== "undefined") {
-        this.toogle(" ");
+      if (typeof result.error !== 'undefined') {
+        this.toogle(' ');
 
-        let say = result.error + " please try again or see the help page for more informations"
+        let say = result.error + ' please try again or see the help page for more informations'
 
         this.kitt.textToSpeech = say;
         this.checkKitt(say);
@@ -433,20 +423,20 @@ export class KittComponent implements OnInit {
 
         };
 
-        this.executionOrder.order = this.trade.order == "buy" ? "bought" : "sold";
+        this.executionOrder.order = this.trade.order == 'buy' ? 'bought' : 'sold';
         this.executionOrder.amount = amount.toString();
         this.executionOrder.total = total.toString();
         this.executionOrder.price = (total / amount).toString();
 
-        this.checkKitt("you " + this.executionOrder.order
-          + this.executionOrder.amount + this.trade.ticker + " @ " + this.executionOrder.price + " BTC");
+        this.checkKitt('you ' + this.executionOrder.order
+          + this.executionOrder.amount + this.trade.ticker + ' @ ' + this.executionOrder.price + ' BTC');
 
-        this.toogle("showExecution");
+        this.toogle('showExecution');
       }
       else {
-        this.toogle(" ");
+        this.toogle(' ');
 
-        let say = "your order was sent to the exchange please check 'open orders' to see details or cancel it";
+        let say = 'your order was sent to the exchange please check "open orders" to see details or cancel it';
         this.kitt.textToSpeech = say;
         this.checkKitt(say)
 
@@ -456,14 +446,14 @@ export class KittComponent implements OnInit {
 
   // send buy or sell order to bittrex
   tradeBittrex() {
-    this.toogle("loading");
+    this.toogle('loading');
 
     this.bittrex.bittrex(this.trade).subscribe(result => {
       if (result.success === false) {
-        let say = result.message.replace(/_/g, " ");
+        let say = result.message.replace(/_/g, ' ');
         this.kitt.textToSpeech = say;
         this.checkKitt(say)
-        this.toogle(" ");
+        this.toogle(' ');
       }
       console.log(result);
     });
@@ -472,9 +462,9 @@ export class KittComponent implements OnInit {
 
   //sumbmit trade from consfirmation
   submitTrade() {
-    if (this.trade.exchange === "poloniex") {
+    if (this.trade.exchange === 'poloniex') {
       this.tradePoloniex();
-    } else if (this.trade.exchange === "bittrex") {
+    } else if (this.trade.exchange === 'bittrex') {
       this.tradeBittrex();
     }
   }
@@ -491,14 +481,14 @@ export class KittComponent implements OnInit {
       this.trade.price = input[4];
       this.trade.exchange = input[6];
 
-      this.toogle("showOrder");
+      this.toogle('showOrder');
 
-      let say = "are you sure you want to " + userInput.value + "?";
+      let say = 'are you sure you want to ' + userInput.value + '?';
       this.checkKitt(say);
 
     } else {
 
-      let say = "Please check the help page, your input to trade a coin is incorrect!";
+      let say = 'Please check the help page, your input to trade a coin is incorrect!';
       this.checkKitt(say);
 
     }
@@ -515,8 +505,8 @@ export class KittComponent implements OnInit {
 
         if (el.symbol === ticker.toUpperCase() || el.id === ticker || el.name === ticker) {
           this.coin = el;
-          this.toogle("showTicker");
-          this.checkKitt(el.name + ' is trading at an average of ' + el.price_usd + " dollar");
+          this.toogle('showTicker');
+          this.checkKitt(el.name + ' is trading at an average of ' + el.price_usd + ' dollar');
 
         }
 
@@ -527,11 +517,11 @@ export class KittComponent implements OnInit {
 
   //check for porfolio exchange balance
   balance(userInput) {
-    this.toogle("loading");
+    this.toogle('loading');
 
     const data = { input: userInput.value.toLowerCase().replace('portfolio', '').replace(' ', '') };
 
-    if (data.input === "poloniex") {
+    if (data.input === 'poloniex') {
 
       this.polo.polo(data).subscribe(result => {
 
@@ -545,10 +535,10 @@ export class KittComponent implements OnInit {
         }
 
         this.exchangeBalance = result;
-        this.toogle("showBalance");
+        this.toogle('showBalance');
 
       });
-    } else if (data.input === "bittrex") {
+    } else if (data.input === 'bittrex') {
 
       this.bittrex.bittrex(data).subscribe(result => {
 
@@ -557,7 +547,7 @@ export class KittComponent implements OnInit {
             this.exchangeBalance[element.Currency] = element.Balance;
           }
         });
-        this.toogle("showBalance");
+        this.toogle('showBalance');
       });
 
     }
@@ -583,7 +573,7 @@ export class KittComponent implements OnInit {
         }
 
         this.checkKitt(this.wikiArticle);
-        this.toogle("showWiki");
+        this.toogle('showWiki');
 
       });
   }
