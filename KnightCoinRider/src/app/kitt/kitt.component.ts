@@ -121,12 +121,17 @@ export class KittComponent implements OnInit {
 
     } else {
 
-      let say = 'Please check the help page, your input is incorrect!';
-      this.kitt.textToSpeech = say;
-      this.kitt.read(say);
+      this.sayGoToHelpPage();
 
     }
   };
+
+  //help page message for incorect input 
+  sayGoToHelpPage() {
+    let say = 'Please check the helpe page, your input was incorrect!';
+    this.kitt.textToSpeech = say;
+    this.checkKitt(say);
+  }
 
   // toogle all none obesevable div in HTML
   toogle(key) {
@@ -147,6 +152,7 @@ export class KittComponent implements OnInit {
 
   // on/off kitt reply and listen 
   killKitt() {
+    let color = 'green';
     if (this.color == 'green') {
 
       this.color = 'red';
@@ -218,9 +224,7 @@ export class KittComponent implements OnInit {
 
     } else {
 
-      let say = 'Please check the help page, your input was incorrect!';
-      this.kitt.textToSpeech = say;
-      this.checkKitt(say);
+      this.sayGoToHelpPage();
       this.toogle(' ');
 
     };
@@ -235,7 +239,7 @@ export class KittComponent implements OnInit {
     const data = { order: 'order book', ticker: input[2] }
 
     if (input[3] === 'poloniex') {
-      console.log('hi22')
+
       this.polo.polo(data).subscribe(result => {
 
         console.log(result);
@@ -244,8 +248,8 @@ export class KittComponent implements OnInit {
 
       });
 
-    } if (input[3] === 'bittrex') {
-      console.log('hi')
+    } else if (input[3] === 'bittrex') {
+
       this.bittrex.bittrex(data).subscribe(result => {
 
         for (var key in result.result.sell) {
@@ -265,9 +269,7 @@ export class KittComponent implements OnInit {
 
     } else {
 
-      let say = 'Please check the help page, your input was incorrect!';
-      this.kitt.textToSpeech = say;
-      this.checkKitt(say);
+      this.sayGoToHelpPage();
       this.toogle(' ');
 
     };
@@ -326,9 +328,7 @@ export class KittComponent implements OnInit {
 
     } else {
 
-      let say = 'Please check the help page, your input was incorrect!';
-      this.kitt.textToSpeech = say;
-      this.checkKitt(say);
+      this.sayGoToHelpPage();
       this.toogle(' ');
 
     }
@@ -488,8 +488,7 @@ export class KittComponent implements OnInit {
 
     } else {
 
-      let say = 'Please check the help page, your input to trade a coin is incorrect!';
-      this.checkKitt(say);
+      this.sayGoToHelpPage();
 
     }
 

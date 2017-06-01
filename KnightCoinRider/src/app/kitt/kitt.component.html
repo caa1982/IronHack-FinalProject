@@ -22,7 +22,6 @@
                       <option value='trade history'>
                         <option value='coins poloniex'>
                           <option value='coins bittrex'>
-                            <option value='exchanges'>
                               <option value='wiki'>
   </datalist>
   <button type='button' class='btn btn-outline-success' (click)='kittInput(userInput)'>Enter</button>
@@ -90,7 +89,7 @@
   </div>
 </div>
 
-<div class='container animated fadeInDownBig' *ngIf='showCoins'>
+<div class='container' *ngIf='showCoins'>
   <div class='row'>
     <div class='col-md-3 col-sm-1' *ngFor='let key of keysGetter(exchangeCoins)'>
       <p class='smallText'><img src='https://files.coinmarketcap.com/static/img/coins/32x32/{{exchangeCoins[key].name}}.png' onError='this.onerror=null; this.src="https://files.coinmarketcap.com/static/img/coins/32x32/bitcoin.png";'
