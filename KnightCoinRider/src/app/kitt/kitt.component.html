@@ -22,7 +22,7 @@
                       <option value='trade history'>
                         <option value='coins poloniex'>
                           <option value='coins bittrex'>
-                              <option value='wiki'>
+                            <option value='wiki'>
   </datalist>
   <button type='button' class='btn btn-outline-success' (click)='kittInput(userInput)'>Enter</button>
 </div>
@@ -141,6 +141,16 @@
 
     </div>
 
+  </div>
+</div>
+
+<div *ngIf='showTradeHistory'>
+  <div class='col col-md-auto tradeHistory' *ngFor='let trade of tradesHistory'>
+    <div>Direction: {{trade.type}}</div>
+    <div>Amount: {{trade.amount}}</div>
+    <div>Price: {{trade.rate}}</div>
+    <div>Fee: {{trade.fee}}</div>
+    <div>Date: {{trade.date}}</div>
   </div>
 </div>
 

@@ -164,6 +164,10 @@ a {
   height: 100px !important;
 }
 
+.tradeHistory{
+  margin-top: 2%;
+}
+
 /* kitt loading*/
 
 #kitt {

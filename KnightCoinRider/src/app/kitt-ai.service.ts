@@ -92,9 +92,9 @@ export class KittAIService {
 
     this.artyom.addCommands({
       description: 'how to trade crypto',
-      indexes: ['how to', 'how'],
+      indexes: ['hello', 'hi'],
       action: (i) => {
-        
+        this.kittSay('Hello, lets trade some crypto!');
       }
     });
     

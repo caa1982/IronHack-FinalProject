@@ -27,7 +27,9 @@ export class KittComponent implements OnInit {
   showOpenOrders: boolean;
   showOrderBook: boolean;
   showCoins: boolean;
+  showTradeHistory: boolean;
   loading: boolean;
+  tradesHistory = [];
   tickerOpenOrders = [];
   coin: Object = {};
   exchangeCoins: Object = {};
@@ -339,7 +341,8 @@ export class KittComponent implements OnInit {
 
       this.polo.polo(data).subscribe(result => {
         if (result.length) {
-          console.log(result);
+          this.tradesHistory = result;
+          this.toogle('showTradeHistory');
         }
         else {
           let say = 'It seems you did not trade anything on ' + data.ticker + ' today';
@@ -351,8 +354,7 @@ export class KittComponent implements OnInit {
 
     } else if (input[3] === 'bittrex') {
       this.bittrex.bittrex(data).subscribe(result => {
-        console.log(result);
-        this.toogle(' ');
+        this.toogle('showTradeHistory');
       });
     }
   }
