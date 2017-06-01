@@ -192,7 +192,6 @@ export class KittComponent implements OnInit {
           }
         }
         this.exchangeCoins = result;
-        console.log(this.exchangeCoins);
         this.toogle('showCoins');
       });
     } else if (input[1] === 'bittrex') {
@@ -207,12 +206,8 @@ export class KittComponent implements OnInit {
         result.result.forEach(element => {
           coins.forEach(el => {
             if (element.MarketName.replace('BTC', '').replace('-', '') === el.symbol) {
-              console.log(this.exchangeCoins)
-
-              console.log('here', el.name)
-
+        
               this.exchangeCoins[el.name] = { name: el.id };
-              console.log(this.exchangeCoins)
 
             }
           })
@@ -242,7 +237,6 @@ export class KittComponent implements OnInit {
 
       this.polo.polo(data).subscribe(result => {
 
-        console.log(result);
         this.orderBook = result;
         this.toogle('showOrderBook');
 
@@ -261,7 +255,6 @@ export class KittComponent implements OnInit {
 
         this.orderBook['asks'] = result.result.sell;
         this.orderBook['bids'] = result.result.buy;
-        console.log(this.orderBook)
 
         this.toogle('showOrderBook');
 
@@ -455,7 +448,7 @@ export class KittComponent implements OnInit {
         this.checkKitt(say)
         this.toogle(' ');
       }
-      console.log(result);
+  
     });
 
   }
